@@ -89,12 +89,15 @@ var login = new function() {
 			type: 'PUT',
 			data: user,
 			url: '../users/edit',
-			success: function (response) {
-				console.log(response)
-			},
-			error: function (xhr, ajaxOptions, thrownError) {
-				console.log(xhr)
+			dataType: 'JSON'
+		}).done(function( data ) {
+			if (data !== true) {
+				if (data.code == 11000) {
+					$("#adminEdit .error").text("The username '"+user.username+"' already exists.");
+				}
+			} else {
+				location.reload();
 			}
-		})
+		});
 	}
 }

@@ -40,11 +40,11 @@ router.post('/add', function(req, res) {
 router.put('/edit', function(req, res) {
 	var db = req.db;
 	var update = req.body;
+	var key = req.body.key;
 	delete update.key;
-	console.log(update);
-	db.collection('userlist').update( { username:req.body.key }, { $set:update }, function(err, result) {
+	db.collection('userlist').update( { username:key }, { $set:update }, function(err, result) {
 		if (err) { res.send(err) };
-		if (result) { console.log('Added!'); res.send(true); };
+		if (result) { console.log('Updated '+key); res.send(true); };
 	});
 });
 
