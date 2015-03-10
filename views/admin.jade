@@ -1,0 +1,60 @@
+extends layout
+
+block content
+	include working
+
+block wrapper
+	div#admin
+		h1 User List
+		div.button(onclick="login.editToggle(0,true)") Add New
+		div#userlist
+			ul.user
+				li.fname.header First Name
+				li.lname.header Last Name
+				li.dept.header Department
+				li.fname.header Username
+			- var views = ['makeup','makeup','copy','design']
+			each val in users
+				ul.user(id= val.username)
+					li.fname= val.fname
+					li.lname= val.lname
+					li.dept= views[0]
+					li.fname= val.username
+					li.edit
+						div.button#edit(onclick="login.editUser('"+val.username+"')") edit
+						div.button#delete delete
+
+	div#adminEdit
+		div.adminEditBox#adminAddNewUser
+			h2 Add A New User
+			form(action="#" onsubmit="login.addNew()")
+				input#newFname(type='text', placeholder='First Name')
+				input#newLname(type='text', placeholder='Last Name')
+				input#newUsername(type='text', placeholder='username')
+				input#newPassword(type='text', placeholder='password')
+				input#newEmail(type='text', placeholder='email')
+				select
+					option Admin
+					option Makeup
+					option Copy
+					option Design
+				input#close.button(type='', value="Close" onclick="login.editToggle(0,false)")
+				input#button_login.button(type='submit', value="Add")
+				#error_login.error
+
+		div.adminEditBox#adminEditUser
+			h2 Edit User
+			form(action="#" onsubmit="login.updateUser()")
+				input#fname(type='text', placeholder='First Name')
+				input#lname(type='text', placeholder='Last Name')
+				input#username(type='text', placeholder='username')
+				input#password(type='text', placeholder='password')
+				input#email(type='text', placeholder='email')
+				select
+					option Admin
+					option Makeup
+					option Copy
+					option Design
+				input#close.button(type='', value="Close" onclick="login.editToggle(1,false)")
+				input#button_login.button(type='submit', value="Edit")
+				#error_login.error

@@ -1,0 +1,23 @@
+#header
+	a(href="./")
+		#eustace
+		#tny
+			h1 The New Yorker
+			h2.long Digital Edition Workflow Manager 
+				span.gray 2.0
+			h2.short DEWM 
+				span.gray 2.0
+	a.button#logout(href='users/logout') l
+	if admin 
+		a.button#manage(href='/admin') m
+	#user
+		h2.userName #{name}
+		h3.userDept #{dept}
+	#issues
+		select#week
+			each date, i in dewm.dates.stringsFormatted
+				if i == dewm.current
+					option(value=i, selected="selected") #{date}
+				else
+					option(value=i) #{date}
+

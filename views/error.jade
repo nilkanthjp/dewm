@@ -1,0 +1,9 @@
+extends layout
+
+block content
+	h1= "Whoops"
+	h2= error.status
+	unless error.status == "404"
+		pre Serious bummer: #{error.message}
+	else
+		pre This page doesn't exist, dude.

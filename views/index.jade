@@ -1,0 +1,18 @@
+extends layout
+
+block content
+	#eustace
+	h1 The New Yorker
+	h2 Digital Edition Workflow Manager 
+		span.gray 2.0
+
+	// Wrapper
+	#wrapper
+		#login
+			form(action="" onsubmit="login.init()")
+				input#inputUsername(type='text', placeholder='username')
+				input#inputPassword(type='password', placeholder='password')
+				input#button_login.button(type='submit', value="Let's Log You In")
+			#error_login.error
+
+	// /WRAPPER
