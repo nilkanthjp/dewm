@@ -1,0 +1,16 @@
+extends layout
+
+block content
+	include working
+
+block wrapper
+	div.welcome
+		h3 Hey there, 
+			span #{fname}
+			|.
+		h4 To start reading a stack, select it at right.
+	div.viewer
+		div#readers
+			h4 There are currently 4 people reading this piece.
+		div#iframe
+			iframe(src="file:///Users/nilkanthpatel/Desktop/d/2000_dept_marx_150323/2000_dept_marx_150323.html", seamless)

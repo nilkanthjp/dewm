@@ -1,14 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET userlist. 
-router.get('/userlist', function(req, res) {
-    var db = req.db;
-    db.collection('userlist').find().toArray(function (err, items) {
-        res.json(items);
-    });
-});*/
-
 /* POST to login user. */
 router.post('/login', function(req, res) {
 	var db = req.db;
@@ -20,7 +12,8 @@ router.post('/login', function(req, res) {
 			req.session.access = result[0].access;
 			req.session.active = true;
 			req.session.save();
-			res.send(true)
+			dewm.user = req.session;
+			res.send(true);
 			console.log(result[0].fname+" logged in.");
        } else {
        		res.send({msg:"Username or password not found.",status:false});

@@ -7,9 +7,17 @@
 				span.gray 2.0
 			h2.short DEWM 
 				span.gray 2.0
-	a.button#logout(href='users/logout') l
+	a.button#logout(href='users/logout')
 	if admin 
-		a.button#manage(href='/admin') m
+		a.button#manage(href='/admin')
+	if dewm.user.access == 3
+		a.button(href='users/art') a
+	else if dewm.user.access == 2
+		a.button(href='users/copy') c
+	else
+		a.button(href='/copy') c
+		a.button(href='users/art') a
+		a.button(href='users/makeup') m
 	#user
 		h2.userName #{name}
 		h3.userDept #{dept}
@@ -21,3 +29,18 @@
 				else
 					option(value=i) #{date}
 
+mixin stacks
+	ul#stacks
+		if dewm.weeks[dewm.current].stacks != undefined
+			each stack, i in dewm.weeks[dewm.current].stacks
+				li.stack(id=stack.folderName[0])
+					div.number=stack.folderName[0]
+					div.head
+						span.title=stack.articleTitle
+						if stack.author != undefined && stack.author.length>1
+							span.author=" by "+stack.author
+					div.status
+						div.web
+						div.copy
+						div.tablet
++stacks

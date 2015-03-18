@@ -8,29 +8,6 @@ block wrapper
 		span #{fname}
 		|.
 
-	h4 You are currently working on the 
+	h4 You&#8217;re currently working on the 
 		span.date=dewm.dates.stringsFormatted[dewm.current]
 		|  issue.
-	
-	h2 This Week's Stacks
-	ul#stacks
-		li.stack
-			div.number 0100_toc_150316
-			div.head 
-				span.title TOC 
-				span.author by none
-			div.status
-				div.web
-				div.copy
-				div.tablet
-		each stack, i in dewm.weeks[dewm.current].stacks
-			li.stack
-				div.number=stack.folderName[0]
-				div.head
-					span.title=stack.articleTitle
-					if stack.author != undefined && stack.author.length>1
-						span.author=" by "+stack.author
-				div.status
-					div.web
-					div.copy
-					div.tablet

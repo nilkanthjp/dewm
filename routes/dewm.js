@@ -12,4 +12,8 @@ router.post('/week', function(req, res) {
 	});
 });
 
+router.post('/issues', function(req, res) {
+	
+});
+
 module.exports = router;

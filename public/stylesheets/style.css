@@ -131,9 +131,12 @@ input {
 }
 
 #wrapper {
-	margin: auto;
+	width:calc(80% - 60px);
+	height:100%;
 	margin-top:50px;
-	width: 80%;
+	margin-left:20%;
+	padding:0 30px;
+	text-align: center;
 }
 
 /* Login Page Styling */
@@ -157,6 +160,7 @@ input {
 	background: #f8f8f8;
 	top: 0;
 	box-shadow: 0 0 10px rgba(0,0,0,.3);
+	z-index:1;
 }
 
 #header #eustace {
@@ -221,6 +225,17 @@ input {
 	padding:5px 8px;
 }
 
+#header .button#manage, #header .button#logout {
+	width: 10px;
+	height: 14px;
+	background:url('https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/512/hand_poking_tool-.png') no-repeat white center center;
+	background-size: 50%;
+}
+
+#header .button#logout {
+	background-image:url('http://cdn.flaticon.com/png/256/32567.png');
+}
+
 #header #issues {
 	float: right;
 	margin-top: 10px;
@@ -228,6 +243,39 @@ input {
 
 #header .button#logout {
 	margin-left:0;
+}
+
+#views {
+	position: relative;
+	top: 70px;
+	width:calc(80% - 60px);
+	margin-left:20%;
+	padding:0 30px;
+}
+
+#views ul {
+	margin-bottom:10px;
+}
+
+#views ul li {
+	display:inline-block;
+	text-transform: uppercase;
+	font-size:12px;
+	margin:0 14px;
+	letter-spacing: 2px;
+	color:gray;
+	cursor: pointer;
+	padding:5px;
+	border-radius:8px;
+}
+
+#views ul li:hover {
+	color:black;
+	background:#fafafa;
+}
+
+#views ul li:first-child {
+	margin-left:0px;
 }
 
 /* Admin Page Styline */
@@ -355,49 +403,85 @@ input {
 
 /* stacks list styline */
 
-#wrapper #stacks .stack {
-	width:100%;
-	padding:5px 0;
+#stacks {
+	width:20%;
+	position:fixed;
+	top:50px;
+	height:100%;
+	overflow-y:scroll;
+	overflow-x:hidden;
+	border-right:1px solid #e0e0e0;
 }
 
-#wrapper #stacks .stack:nth-child(odd) {
-	background:#fafafa;
+#stacks .stack {
+	width: 100%;
+	padding: 10px;
+	background: #f8f8f8;
+	border-bottom: 1px solid #e0e0e0;
+	cursor: pointer;
 }
 
-#wrapper #stacks .stack div {
+#stacks .stack:hover {
+	background:#eaeaea;
+}
+
+#stacks .stack div {
 	display:inline-block;
 }
 
-#wrapper #stacks .stack .number {
-	width:19%;
+#stacks .stack .number {
+	width:100%%;
 	margin-left:1%;
 	color:gray;
 	font-size:13px;
 }
 
-#wrapper #stacks .stack .head {
+#stacks .stack .head {
 	font-family: Caslon;
 	font-style: italic;
 	font-size:13px;
 	width:70%;
+	display:none;
 }
 
-#wrapper #stacks .stack .head .title {
+#stacks .stack .head .title {
 	font-family: Irvin;
 	font-style: normal;
 }
 
-#wrapper #stacks .stack .status {
+#stacks .stack .status {
 	width:10%;
+	display: none;
 }
 
-#wrapper #stacks .stack .status div {
+#stacks .stack .status div {
 	width:15%;
 	padding-bottom:15%;
 	margin:0 8%;
 	background:red;
 	border-radius: 100%;
 	cursor: pointer;
+}
+
+/* copy and art viewer styling */
+
+#wrapper .viewer {
+	width:100%;	
+}
+
+#wrapper .viewer #readers {
+	width:100%;
+	padding:10px 0;
+}
+
+#wrapper .viewer #iframe {
+	width:100%;
+	text-align: left;
+}
+
+#wrapper .viewer iframe {
+	width:768px;
+	border:1px solid #e0e0e0;
 }
 
 

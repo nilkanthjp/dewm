@@ -1,14 +1,14 @@
 doctype html
 html
-    head
-        title= title
-        link(rel='stylesheet', href='/stylesheets/style.css')
-        link(rel='stylesheet', href='/stylesheets/typography.css')
-    body
-        block content
-        div#wrapper
-            block wrapper
-        script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
-        script(src='/javascripts/dewm.js')
-        script(src='/javascripts/main.js')
-        script(src='/javascripts/login.js')
+	head
+		title= "DEWM 2.0"
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		link(rel='stylesheet', href='/stylesheets/typography.css')
+	body(class=dewm.depts[dewm.user.access])
+		block content
+		div#wrapper
+			block wrapper
+		script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
+		script(src='/javascripts/dewm.js')
+		script(src='/javascripts/main.js')
+		script(src='/javascripts/login.js')

@@ -11,12 +11,14 @@ dewm = require('dewm');
 
 // Database
 var mongo = require('mongoskin');
-var db = mongo.db("mongodb://dewm.local:27017/dewm", {native_parser:true});
+var db = mongo.db("mongodb://dewm:27017/dewm", {native_parser:true});
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var dewmroute = require('./routes/dewm');
 var admin = require('./routes/admin');
+var copy = require('./routes/copy');
+var art = require('./routes/art');
 
 var app = express();
 var router = express.Router();
@@ -44,6 +46,8 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/dewm', dewmroute);
 app.use('/admin', admin);
+app.use('/copy', copy);
+app.use('/art', art);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

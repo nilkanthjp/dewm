@@ -20,4 +20,9 @@ var dewm = new function() {
 		var newWeek = $(this).val();
 		self.changeWeek(newWeek);
 	});
+	
+	$("#stacks .stack").click(function() {
+		self.currentStack = $(this).attr("id");
+		$("#wrapper .welcome").html("<img src='./images/loader.gif' />");
+	})
 }
