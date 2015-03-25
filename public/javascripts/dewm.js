@@ -30,7 +30,7 @@ var dewm = new function() {
 		$(".makeup #stacks").animate({width:"100%"},800,function() {
 			$(".makeup #stacks .number").css({"width":"20%"});
 			$(".makeup #stacks .status").css({"width":"5%","display":"inline-block"});
-			$(".makeup #stacks .head").css({"width":"60%","display":"inline-block"});
+			$(".makeup #stacks .head").css({"width":"70%","display":"inline-block"});
 			$(".makeup #stacks .status").animate({opacity:1});
 			$(".makeup #stacks .head").animate({opacity:1});
 		});

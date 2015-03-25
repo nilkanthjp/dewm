@@ -1,8 +1,19 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
 
-router.get('/', function(req, res) {
-	express.static("Users/nilkanthpatel/Desktop/d/2000_dept_marx_150323/2000_dept_marx_150323.html");	
+router.get('/:p*', function(req, res) {
+	var format = req.param('f');
+	var path = req.param('p');
+	var root = "file://localhost"+path.split('/',path.split('/').length-2).join("/")+"/";
+	console.log(format);
+	fs.readFile(path, {encoding: format}, function (err, html) {
+		if (err) {
+			throw err; 
+		}
+		absoluteHTML = html.replace(/\.\.\//g,root);
+		res.send(absoluteHTML);
+	});
 });
 
 module.exports = router;
