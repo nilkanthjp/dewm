@@ -442,6 +442,7 @@ input {
 	font-size:13px;
 	width:70%;
 	display:none;
+	opacity:0;
 }
 
 #stacks .stack .head .title {
@@ -452,6 +453,7 @@ input {
 #stacks .stack .status {
 	width:10%;
 	display: none;
+	opacity: 0;
 }
 
 #stacks .stack .status div {
