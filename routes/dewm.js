@@ -7,8 +7,8 @@ router.get('/', function(req, res) {
 });
 
 router.post('/week', function(req, res) {
-	response = dewm.getWeek(parseInt(req.body.week),"",function(r) {
-		res.send(r);
+	response = dewm.getWeek(parseInt(req.body.week),"",function(response) {
+		res.send(response);
 	});
 });
 

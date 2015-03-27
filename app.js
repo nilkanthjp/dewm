@@ -19,6 +19,7 @@ var dewmroute = require('./routes/dewm');
 var admin = require('./routes/admin');
 var copy = require('./routes/copy');
 var art = require('./routes/art');
+var comments = require('./routes/comments');
 
 var app = express();
 var router = express.Router();
@@ -36,6 +37,9 @@ app.use(cookieParser());
 app.use(session( { secret: 'keyboard', resave: false, saveUninitialized: false, cookie: { maxAge: 36000000, httpOnly: false } } ));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Give the server access to Tablet Orange files
+app.use(express.static('/Volumes/TNY/Edit/Groups/Tablet/'));
+
 // Make our db accessible to our router
 app.use(function(req,res,next){
     req.db = db;
@@ -48,6 +52,7 @@ app.use('/dewm', dewmroute);
 app.use('/admin', admin);
 app.use('/copy', copy);
 app.use('/art', art);
+app.use('/comments', comments);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

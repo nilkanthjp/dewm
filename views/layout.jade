@@ -4,11 +4,10 @@ html
 		title= "DEWM 2.0"
 		link(rel='stylesheet', href='/stylesheets/style.css')
 		link(rel='stylesheet', href='/stylesheets/typography.css')
+		script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
 	body(class=dewm.depts[dewm.user.access])
 		block content
 		block wrapper
-		script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
 		script(src='/javascripts/dewm.js')
-		script(src='/javascripts/viewer.js')
-		script(src='/javascripts/comments.js')
 		script(src='/javascripts/login.js')
+		script(src='/javascripts/utils.js')

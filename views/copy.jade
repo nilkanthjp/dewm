@@ -4,36 +4,45 @@ block content
 	include working
 
 block wrapper
-	div#wrapper.full
-		div.viewer
-			div#sidebar
-				h4 There are currently 4 people reading this piece: 
-					span.bold Alex, Amy, and Ryan.
-				h4 You are assigned 
-					span.bold part 2 of 5 
-					| for this piece. 
-					span.bold
-						a Go &raquo;
-				h2 Pick a size to read on
-				img.ipad(src="./images/ipad.png" width="60%")
-				img.iphone(src="./images/iphone5.png" width="30%")
-			div#iframe
-				iframe(src="http://localhost:8080/Archive/2015/15-03-30/Digital%20Danville/2800_crit_lane_150330/2800_crit_lane_150330.html" scroll="yes")
+	if(home==true)
+		div#wrapper
+			div.welcome
+				h3 Hey there, 
+					span #{fname}
+					|.
 
-		div.comments
-			h2 Comments
-			ul
-				li.comment
-					div.timestamp Chloe McConnell at 4:56pm on March 25, 2015
-					div.text Hey guys this is a super long comment whoooo hey how are ya hey guys whoooooo yess lorem ipsum where are you i like unicorns whooooo.
-					div.status.false
-						div.switch
-							div.switchButton
-				li.comment
-					div.timestamp Chloe McConnell at 4:56pm on March 25, 2015
-					div.text Hey guys this is a super long comment whoooo hey how are ya hey guys whoooooo yess lorem ipsum where are you i like unicorns whooooo.
-					div.status
-				li.comment
-					div.timestamp Chloe McConnell at 4:56pm on March 25, 2015
-					div.text Hey guys this is a super long comment whoooo hey how are ya hey guys whoooooo yess lorem ipsum where are you i like unicorns whooooo.
-					div.status
+				h4 Welcome to the Digital Edition Workflow Manager! You&#8217;re currently assigned the following stacks for the  
+					span.date=dewm.dates.stringsFormatted[dewm.current]
+					|  issue:
+				ul
+					li one
+					li two
+					li three
+	else
+		div#wrapper.full
+			div.viewer
+				div#sidebar
+					h4 There are currently 4 people reading this piece: 
+						span.bold Alex, Amy, and Ryan.
+					h4 You are assigned 
+						span.bold part 2 of 5 
+						| for this piece. 
+						span.bold
+							a Go &raquo;
+					h2 Pick a size to read on
+					img.ipad(src="/images/ipad.png" width="60%")
+					img.iphone(src="/images/iphone5.png" width="30%")
+				div#iframe
+					iframe(src="" scroll="yes")
+
+			div.comments
+				h2 Comments
+					a(onclick="comments.newCommentToggle()") Add New
+				div.newComment
+					textarea.newCommentText(type='textarea', placeholder='Add comment text here.')
+					div.newCommentSubmit(onclick="comments.newCommentSubmit()") Submit
+					div.newCommentClose(onclick="comments.newCommentToggle()") Close
+				ul
+
+	script(src='/javascripts/comments.js')
+	script(src='/javascripts/viewer.js')

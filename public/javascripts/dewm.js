@@ -1,7 +1,17 @@
-// Define main properties and methods for "dewm" class
+// Define main properties and methods for "stack" class and get the "dewm" object from node
+$.ajax({
+	type: 'GET',
+	url: '/dewm'
+}).done(function( data ) {
+	dewm = data;
+	if ($("#wrapper .viewer").length>0) { viewer.refreshViewer(); };
+	if ($("#wrapper .comments").length>0) { comments.refreshComments(); };
+});
 
-var dewm = new function() {
+var stacks = new function() {
 	var self = this;
+	this.currentStack = window.location.pathname.split("/")[2];
+
 	this.changeWeek = function(week) {
 		$.ajax({
 			type: 'POST',
@@ -12,7 +22,7 @@ var dewm = new function() {
 			if (response.length>1) {
 				alert(response);
 			}
-			location.reload();
+			window.location=window.location.origin;
 		});
 	}
 
@@ -20,11 +30,6 @@ var dewm = new function() {
 		var newWeek = $(this).val();
 		self.changeWeek(newWeek);
 	});
-	
-	$("#stacks .stack").click(function() {
-		self.currentStack = $(this).attr("id");
-		$("#wrapper .welcome").html("<img src='./images/loader.gif' />");
-	})
 	
 	this.showMakeup = function() {
 		$(".makeup #stacks").animate({width:"100%"},800,function() {

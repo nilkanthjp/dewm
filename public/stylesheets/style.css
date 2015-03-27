@@ -74,7 +74,7 @@ fieldset {
 	text-align: center;
 }
 
-input {
+input, textarea {
 	height:15px;
 	border-radius: 5px;
 	padding:10px;
@@ -82,6 +82,7 @@ input {
 	font-family:NeutraLight;
 	font-size:18px;
 	margin:0px 2px;
+	resize:none;
 }
 
 .gray {
@@ -486,9 +487,26 @@ input {
 
 /* copy and art viewer styling */
 
+#wrapper .loader {
+	display: none;
+}
+
+#wrapper .welcome h4 {
+	margin-top:10px;
+}
+
+#wrapper .welcome ul {
+	text-align: left;
+}
+
+#wrapper .welcome ul li {
+	list-style:inherit;
+}
+
 #wrapper .viewer {
 	width:calc(100% - 20px);
 	height:calc(100% - 80px);
+	min-width: 970px;
 	padding:30px 10px;
 	margin:10px 0;
 }
@@ -496,6 +514,7 @@ input {
 #wrapper .viewer #sidebar {
 	width:calc(98% - 800px);
 	max-width: 250px;
+	min-width: 150px;
 	margin:0 1%;
 	display:inline-block;
 }
@@ -544,6 +563,50 @@ input {
 
 #wrapper .comments h2 {
 	margin:0;
+	margin-bottom: 15px;
+}
+
+#wrapper .comments h2 a {
+	font-size: 11px;
+	color: white;
+	background: black;
+	padding: 6px;
+	border-radius: 10px;
+	margin: 5px 15px;
+	position: relative;
+	top: -5px;
+}
+
+#wrapper .comments .newComment {
+	width: 100%;
+	height:0;
+	overflow: hidden;
+	text-align: left;
+}
+
+#wrapper .comments .newComment textarea {
+	width: calc(100% - 85px);
+	margin: 10px 0;
+	height: 50px;
+	font-size: 15px;
+	float:left;
+}
+
+#wrapper .comments .newComment div {
+	width:40px;
+	padding:5px;
+	margin:0 5px;
+	margin-bottom: 5px;
+	cursor: pointer;
+	font-size: 11px;
+	position: relative;
+	top: 10px;
+	text-transform: uppercase;
+	background: black;
+	color: white;
+	display: inline-block;
+	border-radius: 5px;
+	float:left;
 }
 
 #wrapper .comments ul {
