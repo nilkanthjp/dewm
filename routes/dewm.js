@@ -3,11 +3,16 @@ var router = express.Router();
 
 /* GET DEWM object. */
 router.get('/', function(req, res) {
-	res.json(dewm);
+	var userDewm = dewm;
+	userDewm.user = req.session;
+	res.json(userDewm);
 });
 
 router.post('/week', function(req, res) {
-	response = dewm.getWeek(parseInt(req.body.week),"",function(response) {
+	var week = parseInt(req.body.week);
+	req.session.current = week;
+	req.session.save();
+	response = dewm.setWeek(week,"",function(response) {
 		res.send(response);
 	});
 });

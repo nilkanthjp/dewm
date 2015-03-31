@@ -1,14 +1,27 @@
 extends layout
 
 block content
-	#eustace
-	h1 The New Yorker
-	h2 Digital Edition Workflow Manager 
-		span.gray 2.0
+	if logged
+		include working
+		div#wrapper.full
+			h3 Hey there, 
+				span #{fname}
+				|.
+			h4 Welcome to the Digital Edition Workflow Manager! You&#8217;re currently working on the 
+				span.date=dewm.dates.stringsFormatted[dewm.current]
+				|  issue.
+			br
+			h4 You can use one of the sections above to work on a specific part of the issue. For a tailored overview, click the 'M' button. Or, for a tour of the interface, 
+				a click here.
+	else
+		#eustace
+		h1 The New Yorker
+		h2 Digital Edition Workflow Manager 
+			span.gray 2.0
 
-	#login
-		form(action="" onsubmit="login.init()")
-			input#inputUsername(type='text', placeholder='username')
-			input#inputPassword(type='password', placeholder='password')
-			input#button_login.button(type='submit', value="Let's Log You In")
-		#error_login.error
+		#login
+			form(action="" onsubmit="login.init()")
+				input#inputUsername(type='text', placeholder='username')
+				input#inputPassword(type='password', placeholder='password')
+				input#button_login.button(type='submit', value="Let's Log You In")
+			#error_login.error

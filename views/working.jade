@@ -1,5 +1,5 @@
 #header
-	a(href="./")
+	a(href="/")
 		#eustace
 		#tny
 			h1 The New Yorker
@@ -10,37 +10,83 @@
 	a.button#logout(href='users/logout')
 	if admin 
 		a.button#manage(href='/admin')
-	if dewm.user.access == 3
-		a.button(href='users/art') a
-	else if dewm.user.access == 2
-		a.button(href='users/copy') c
+	if user.access == 3
+		a.button(href='/views/art') a
+	else if user.access == 2
+		a.button(href='/views/copy') c
 	else
-		a.button(href='/copy') c
-		a.button(href='users/art') a
+		a.button(href='/views/makeup') m
+		a.button(href='/views/copy') c
+		a.button(href='views/art') a
 	#user
 		h2.userName #{name}
 		h3.userDept #{dept}
 	#issues
 		select#week
 			each date, i in dewm.dates.stringsFormatted
-				if i == dewm.current
+				if i == user.current
 					option(value=i, selected="selected") #{date}
 				else
 					option(value=i) #{date}
 
-mixin stacks
-	ul#stacks
-		if dewm.weeks[dewm.current].stacks != undefined
-			each stack, i in dewm.weeks[dewm.current].stacks
-				a(href="../copy/"+stack.folderName[0])
-					li.stack(id=stack.folderName[0])
-						div.number=stack.folderName[0]
-						div.head
-							span.title=stack.articleTitle
-							if stack.author != undefined && stack.author.length>1
-								span.author=" by "+stack.author
-						div.status
-							div.web
-							div.copy
-							div.tablet
-+stacks
+mixin stacks(dept,active)
+	ul#stacks(class=dept)
+		if dewm.weeks[user.current].stacks != undefined
+			each stack, i in dewm.weeks[user.current].stacks
+				a(href="?stack="+stack.stack)
+					if (stack.stack==active)
+						+stack(dept,stack,"stack active")
+					else
+						+stack(dept,stack,"stack")
+
+mixin stack(dept,content,status)
+	if dept=="makeup"
+		li(id=content.stack,class=status)
+			div.number=content.stack
+			div.head
+				span.title=content.title
+				if content.author != undefined && content.author.length>1
+					span.author=" by "+content.author
+			div.status
+				div.web
+				div.copy
+				div.tablet
+	else
+		li(id=content.stack,class=status)
+			div.number=content.stack
+			div.head
+				span.title=content.title
+				if content.author != undefined && content.author.length>1
+					span.author=" by "+content.author
+			div.status
+				div.web
+				div.copy
+				div.tablet
+
+mixin viewer
+	div.viewer
+		div#sidebar
+			h4 There are currently 4 people reading this piece: 
+				span.bold Alex, Amy, and Ryan.
+			h4 You are assigned 
+				span.bold part 2 of 5 
+				| for this piece. 
+				span.bold
+					a Go &raquo;
+			h2 Pick a size to read on
+			img.ipad(src="/images/ipad.png" width="60%")
+			img.iphone(src="/images/iphone5.png" width="30%")
+		div#iframe
+			iframe(src="" scroll="yes")
+	script(src='/javascripts/viewer.js')
+
+mixin comments
+	div.comments
+		h2 Comments
+			a(onclick="comments.newCommentToggle()") Add New
+		div.newComment
+			textarea.newCommentText(type='textarea', placeholder='Add comment text here.')
+			div.newCommentSubmit(onclick="comments.newCommentSubmit()") Submit
+			div.newCommentClose(onclick="comments.newCommentToggle()") Close
+		ul
+	script(src='/javascripts/comments.js')

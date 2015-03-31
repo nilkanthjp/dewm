@@ -2,16 +2,13 @@ extends layout
 
 block content
 	include working
+	if(home)
+		+stacks("makeup",stack)
+	else
+		+stacks("",stack)
 
 block wrapper
-	div#wrapper
-		h3 Hey there, 
-			span #{fname}
-			|.
-		h4 Welcome to the Digital Edition Workflow Manager! You&#8217;re currently working on the 
-			span.date=dewm.dates.stringsFormatted[dewm.current]
-			|  issue.
-		br
-		h4 Click
-			a(onclick="stacks.showMakeup()")  here
-			|  to see an overview of this issue.
+	unless home
+		div#wrapper
+
+	script(src='/javascripts/viewer.js')

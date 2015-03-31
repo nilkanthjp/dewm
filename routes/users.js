@@ -11,8 +11,8 @@ router.post('/login', function(req, res) {
 			req.session.lname = result[0].lname;
 			req.session.access = result[0].access;
 			req.session.active = true;
+			req.session.current = dewm.latest;
 			req.session.save();
-			dewm.user = req.session;
 			res.send(true);
 			console.log(result[0].fname+" logged in.");
        } else {

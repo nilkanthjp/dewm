@@ -2,14 +2,14 @@
 
 var comments = new function() {
 	var self = this;
+	this.dept = window.location.pathname.split("/")[2];
+	this.stack = window.location.search.split("stack=")[1];
 	setInterval(function(){ self.refreshComments(); }, 10000);
 
 	this.refreshComments = function() {
-		var stack = window.location.pathname.split("/")[2],
-			type = window.location.pathname.split("/")[1];
 		$.ajax({
 			type: 'GET',
-			url: '/comments?s='+stack+'&d='+type
+			url: '/comments?d='+self.dept+'&s='+self.stack
 		}).done(function( data ) { 
 			for (var i=0; i<data.length; i++) {
 				if ( $("#wrapper .comments li#"+data[i]._id).length==0 ) {

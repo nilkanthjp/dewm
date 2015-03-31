@@ -17,8 +17,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var dewmroute = require('./routes/dewm');
 var admin = require('./routes/admin');
-var copy = require('./routes/copy');
-var art = require('./routes/art');
+var views = require('./routes/views');
 var comments = require('./routes/comments');
 
 var app = express();
@@ -50,8 +49,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/dewm', dewmroute);
 app.use('/admin', admin);
-app.use('/copy', copy);
-app.use('/art', art);
+app.use('/views', views);
 app.use('/comments', comments);
 
 // catch 404 and forward to error handler

@@ -10,7 +10,8 @@ $.ajax({
 
 var stacks = new function() {
 	var self = this;
-	this.currentStack = window.location.pathname.split("/")[2];
+	this.dept = window.location.pathname.split("/")[2];
+	this.currentStack = window.location.search.split("stack=")[1];
 
 	this.changeWeek = function(week) {
 		$.ajax({
@@ -21,8 +22,9 @@ var stacks = new function() {
 		}).done(function( response ) {
 			if (response.length>1) {
 				alert(response);
+			} else {
+				window.location.href="http://"+window.location.host+window.location.pathname;
 			}
-			window.location=window.location.origin;
 		});
 	}
 
@@ -30,14 +32,5 @@ var stacks = new function() {
 		var newWeek = $(this).val();
 		self.changeWeek(newWeek);
 	});
-	
-	this.showMakeup = function() {
-		$(".makeup #stacks").animate({width:"100%"},800,function() {
-			$(".makeup #stacks .number").css({"width":"20%"});
-			$(".makeup #stacks .status").css({"width":"5%","display":"inline-block"});
-			$(".makeup #stacks .head").css({"width":"70%","display":"inline-block"});
-			$(".makeup #stacks .status").animate({opacity:1});
-			$(".makeup #stacks .head").animate({opacity:1});
-		});
-	}
+
 }

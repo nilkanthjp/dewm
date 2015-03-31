@@ -145,9 +145,16 @@ input, textarea {
 	text-align: center;
 }
 
-#wrapper.full {
+#wrapper.wide {
 	width:80%;
 	padding:0 0;
+}
+
+#wrapper.full {
+	width:90%;
+	padding:0 0;
+	margin:auto;
+	margin-top:50px;
 }
 
 #wrapper a {
@@ -300,6 +307,10 @@ input, textarea {
 
 /* Admin Page Styline */
 
+#admin {
+	text-align: left;
+}
+
 #admin h1 {
 	padding: 40px 0 10px 0;
 }
@@ -427,7 +438,7 @@ input, textarea {
 	width:20%;
 	position:fixed;
 	top:50px;
-	height:100%;
+	height:calc(100% - 50px);
 	overflow-y:scroll;
 	overflow-x:hidden;
 	border-right:1px solid #e0e0e0;
@@ -441,6 +452,10 @@ input, textarea {
 	cursor: pointer;
 }
 
+#stacks .stack.active {
+	background: #e0e0e0;
+}
+
 #stacks .stack:hover {
 	background:#eaeaea;
 }
@@ -450,8 +465,8 @@ input, textarea {
 }
 
 #stacks .stack .number {
-	width:100%%;
-	margin-left:1%;
+	width:calc(100% - 5px);
+	margin-left:5px;
 	color:gray;
 	font-size:13px;
 }
@@ -462,7 +477,6 @@ input, textarea {
 	font-size:13px;
 	width:70%;
 	display:none;
-	opacity:0;
 }
 
 #stacks .stack .head .title {
@@ -473,7 +487,6 @@ input, textarea {
 #stacks .stack .status {
 	width:10%;
 	display: none;
-	opacity: 0;
 }
 
 #stacks .stack .status div {
@@ -483,6 +496,26 @@ input, textarea {
 	background:red;
 	border-radius: 100%;
 	cursor: pointer;
+}
+
+/* customize style for stacks menu for makeup staffers */
+
+#stacks.makeup {
+	width:100%;
+}
+
+#stacks.makeup .number {
+	width:20%;
+}
+
+#stacks.makeup .status {
+	width:5%;
+	display: inline-block;
+}
+
+#stacks.makeup .head {
+	width:70%;
+	display: inline-block;
 }
 
 /* copy and art viewer styling */

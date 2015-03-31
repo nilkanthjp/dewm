@@ -2,6 +2,7 @@ extends layout
 
 block content
 	include working
+	+stacks("copy",stack)
 
 block wrapper
 	if(home==true)
@@ -12,37 +13,13 @@ block wrapper
 					|.
 
 				h4 Welcome to the Digital Edition Workflow Manager! You&#8217;re currently assigned the following stacks for the  
-					span.date=dewm.dates.stringsFormatted[dewm.current]
+					span.date=dewm.dates.stringsFormatted[dewm.user.current]
 					|  issue:
 				ul
 					li one
 					li two
 					li three
 	else
-		div#wrapper.full
-			div.viewer
-				div#sidebar
-					h4 There are currently 4 people reading this piece: 
-						span.bold Alex, Amy, and Ryan.
-					h4 You are assigned 
-						span.bold part 2 of 5 
-						| for this piece. 
-						span.bold
-							a Go &raquo;
-					h2 Pick a size to read on
-					img.ipad(src="/images/ipad.png" width="60%")
-					img.iphone(src="/images/iphone5.png" width="30%")
-				div#iframe
-					iframe(src="" scroll="yes")
-
-			div.comments
-				h2 Comments
-					a(onclick="comments.newCommentToggle()") Add New
-				div.newComment
-					textarea.newCommentText(type='textarea', placeholder='Add comment text here.')
-					div.newCommentSubmit(onclick="comments.newCommentSubmit()") Submit
-					div.newCommentClose(onclick="comments.newCommentToggle()") Close
-				ul
-
-	script(src='/javascripts/comments.js')
-	script(src='/javascripts/viewer.js')
+		div#wrapper.wide
+			+viewer
+			+comments
