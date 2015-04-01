@@ -15,8 +15,8 @@ router.get('/:dept*', function(req, res) {
 			} else {
 				var issue = stack.split("_")[stack.split("_").length-1];
 				if (dewm.dates.strings.indexOf(issue)>-1) { 
-					dewm.setWeek(dewm.dates.strings.indexOf(issue),"",function() {});
-					res.redirect("/views/"+dept);
+					dewm.getWeek(dewm.dates.strings.indexOf(issue));
+					res.redirect("/");
 				} else {
 					res.render('error', { error: {status: 404, message: "This stack isn't available ahora. Drink some coffee and come back later." }});
 				}

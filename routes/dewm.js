@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var utils = require('dewm-utils');
 
 /* GET DEWM object. */
 router.get('/', function(req, res) {
@@ -19,6 +20,25 @@ router.post('/week', function(req, res) {
 
 router.post('/issues', function(req, res) {
 	
+});
+
+router.get('/stacks/:stack*', function(req, res) {
+	var stack = req.param('stack');
+		stackDate = utils.dateFromStack(stacks[i].folderName[0]),
+		week = dewm.dates.strings.indexOf(stackDate);
+	if (week>=0) {
+		if (dewm.weeks[week].files.indexOf(stack)>=0) {
+			var stackIndex = dewm.weeks[week].files.indexOf(stack);
+			res.json(dewm.weeks[week].stacks[stackIndex]);
+		} else {
+			dewm.getWeek(week,"",function() {
+				var stackIndex = dewm.weeks[week].files.indexOf(stack);
+				res.json(dewm.weeks[week].stacks[stackIndex]);
+			})
+		}
+	} else {
+		res.render('error',{error:{status:404}})
+	}
 });
 
 module.exports = router;
