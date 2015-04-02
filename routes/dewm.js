@@ -13,7 +13,7 @@ router.post('/week', function(req, res) {
 	var week = parseInt(req.body.week);
 	req.session.current = week;
 	req.session.save();
-	response = dewm.setWeek(week,"",function(response) {
+	response = dewm.setWeek(week,function(response) {
 		res.send(response);
 	});
 });
