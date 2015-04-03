@@ -12,7 +12,7 @@ dewm = require('dewm');
 
 // Database
 var mongo = require('mongoskin');
-var db = mongo.db("mongodb://dewm:27017/dewm", {native_parser:true});
+var db = mongo.db(paths.mongo.host+paths.mongo.db, {native_parser:true});
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
