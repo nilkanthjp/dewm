@@ -1,6 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
+router.get('/', function(req, res) {
+	res.redirect("/");
+});
+
 router.get('/:dept*', function(req, res) {
 	var dept = req.param('dept');
 		stack = req.param('stack'),
@@ -15,7 +19,7 @@ router.get('/:dept*', function(req, res) {
 			} else {
 				var issue = stack.split("_")[stack.split("_").length-1];
 				if (dewm.dates.strings.indexOf(issue)>-1) { 
-					dewm.getWeek(dewm.dates.strings.indexOf(issue));
+					dewm.setWeek(dewm.dates.strings.indexOf(issue));
 					res.redirect("/");
 				} else {
 					res.render('error', { error: {status: 404, message: "This stack isn't available ahora. Drink some coffee and come back later." }});

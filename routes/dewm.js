@@ -23,15 +23,15 @@ router.post('/issues', function(req, res) {
 });
 
 router.get('/stacks/:stack*', function(req, res) {
-	var stack = req.param('stack');
-		stackDate = utils.dateFromStack(stacks[i].folderName[0]),
+	var stack = req.param('stack'),
+		stackDate = utils.dateFromStack(stack),
 		week = dewm.dates.strings.indexOf(stackDate);
 	if (week>=0) {
 		if (dewm.weeks[week].files.indexOf(stack)>=0) {
 			var stackIndex = dewm.weeks[week].files.indexOf(stack);
 			res.json(dewm.weeks[week].stacks[stackIndex]);
 		} else {
-			dewm.getWeek(week,"",function() {
+			dewm.getWeek(week,function() {
 				var stackIndex = dewm.weeks[week].files.indexOf(stack);
 				res.json(dewm.weeks[week].stacks[stackIndex]);
 			})

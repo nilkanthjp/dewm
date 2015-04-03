@@ -4,8 +4,7 @@ $.ajax({
 	url: '/dewm'
 }).done(function( data ) {
 	dewm = data;
-	if ($("#wrapper .viewer").length>0) { viewer.refreshViewer(); };
-	if ($("#wrapper .comments").length>0) { comments.refreshComments(); };
+	if ($("#wrapper .comments").length>0) { comments.commentsSocket(); };
 });
 
 var stacks = new function() {

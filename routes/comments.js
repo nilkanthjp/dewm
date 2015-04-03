@@ -1,28 +1,14 @@
 var express = require('express');
 var router = express.Router();
-var mongo = require('mongoskin');
+var utils = require('dewm-utils');
 
 router.get('/', function(req, res) {
 	if (req.session.access === 0) {
-		var db = req.db,
-			stack = req.param('s'),
-			type = req.param('d');
-		db.collection('comments').find({stack:stack, type:type}).toArray(function (err, items) {
-			var usernames = [];
-			for (var i=0; i<items.length; i++) {
-				usernames.push(items[i].username);
-			}
-			db.collection('userlist').find({username:{ $in: usernames }}).toArray(function (err, users) {
-				var usernameDict = {};
-				for (var i=0; i<users.length; i++) {
-					usernameDict[users[i].username] = users[i].fname+" "+users[i].lname;
-				};
-				for (var i=0; i<items.length; i++) {
-					items[i].name = usernameDict[items[i].username];
-				};
-				res.json(items);
-			});
-		});		
+		var stack = req.param('stack'),
+			type = req.param('dept');
+		utils.comments(stack,type,function(comments) {
+			res.json(comments);
+		});
 	} else {
 		res.redirect('/');
 	}

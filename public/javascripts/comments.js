@@ -4,13 +4,12 @@ var comments = new function() {
 	var self = this;
 	this.dept = window.location.pathname.split("/")[2];
 	this.stack = window.location.search.split("stack=")[1];
-	setInterval(function(){ self.refreshComments(); }, 10000);
 
-	this.refreshComments = function() {
-		$.ajax({
-			type: 'GET',
-			url: '/comments?d='+self.dept+'&s='+self.stack
-		}).done(function( data ) { 
+	this.commentsSocket = function() {
+		var self = this,
+			socket = io.connect(window.location.host);
+		socket.emit('reqComment', { stack:self.stack, dept:self.dept });
+		socket.on('newComment', function (data) {
 			for (var i=0; i<data.length; i++) {
 				if ( $("#wrapper .comments li#"+data[i]._id).length==0 ) {
 					var timestamp = new Date(data[i].time);
@@ -40,7 +39,7 @@ var comments = new function() {
 		var comment = { 
 			stack:stacks.currentStack,
 			username:dewm.user.username,
-			type:window.location.pathname.split("/")[1],
+			type:window.location.pathname.split("/")[2],
 			status:false,
 			time:new Date(),
 			text: $("#wrapper .comments .newComment .newCommentText").val()
@@ -85,5 +84,4 @@ var comments = new function() {
 		var text = dateToFormat.getHours()+":"+dateToFormat.getMinutes()+" on "+utils.months[dateToFormat.getMonth()]+" "+dateToFormat.getDate()+", "+dateToFormat.getFullYear();
 		return text;
 	}
-
 }

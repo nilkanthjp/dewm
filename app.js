@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
+var paths = require('dewm-paths');
 
 // Declare global dewm variable
 dewm = require('dewm');
@@ -37,7 +38,7 @@ app.use(session( { secret: 'keyboard', resave: false, saveUninitialized: false, 
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Give the server access to Tablet Orange files
-app.use(express.static('/Volumes/TNY/Edit/Groups/Tablet/'));
+app.use(express.static(paths.orangeRoot));
 
 // Make our db accessible to our router
 app.use(function(req,res,next){
@@ -82,5 +83,8 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+// start the server for push notifications
+var server = app.listen(3000,function(){ dewm.initSocket(this); });
 
 module.exports = app;

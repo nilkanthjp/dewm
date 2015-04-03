@@ -63,7 +63,7 @@ mixin stack(dept,content,status)
 				div.copy
 				div.tablet
 
-mixin viewer
+mixin viewer(server)
 	div.viewer
 		div#sidebar
 			h4 There are currently 4 people reading this piece: 
@@ -77,7 +77,7 @@ mixin viewer
 			img.ipad(src="/images/ipad.png" width="60%")
 			img.iphone(src="/images/iphone5.png" width="30%")
 		div#iframe
-			iframe(src="" scroll="yes")
+			iframe(src=dewm.weeks[user.current][server].split("/Tablet")[1]+"Digital Danville/"+stack+"/"+stack+".html" scroll="yes")
 	script(src='/javascripts/viewer.js')
 
 mixin comments
