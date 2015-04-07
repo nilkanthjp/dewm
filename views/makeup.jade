@@ -3,12 +3,62 @@ extends layout
 block content
 	include working
 	if(home)
-		+stacks("makeup",stack)
+		+stacks("makeup")
 	else
-		+stacks("",stack)
+		+stacks("",stack.stack)
 
 block wrapper
 	unless home
-		div#wrapper
+		div#wrapper.makeup
+			h2=stack.kicker
+			h1=stack.title
+			if stack.author
+				h4 by 
+					span.author=stack.author
+			div.meta
+				p Stack Number 
+					span.info=stack.stack
+				p XML Filename 
+					span.info=stack.xmlfilename
+				p Assigned to 
+					span.info Alex, Amy, and Ryan
+				p This stack is currently being read by Alex, Amy, and Ryan.
+				p
+					a(target="_blank" href=dewm.weeks[user.current].orange.split("/Tablet")[1]+"/Digital Danville/"+stack.stack+"/"+stack.stack+".html") Open Danville.
+				p
+					a(target="_blank" href=dewm.weeks[user.current].green.split("/EDIT")[1]+"/"+stack.stack+"/"+stack.stack+".html") Open Tablet version.
 
-	script(src='/javascripts/viewer.js')
+			div.action
+				h2 Actions
+				ul
+					li.xml
+						div.status
+						div.text XML Status
+					li.copy
+						div.status
+						div.text Copy Status
+					li.art
+						div.status
+						div.text Art Status
+					li.makeup
+						div.status
+						div.text Tablet Status
+
+			div.action.right
+				h2 Actions
+				ul
+					li.xml
+						div.status
+						div.text Copy Status
+					li.copy
+						div.status
+						div.text Copy Status
+					li.art
+						div.status
+						div.text Copy Status
+					li.makeup
+						div.status
+						div.text Copy Status
+
+			+viewer(dewm.weeks[user.current].green.split("/EDIT")[1]+"/"+stack.stack+"/"+stack.stack+".html")
+

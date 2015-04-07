@@ -37,8 +37,9 @@ app.use(cookieParser());
 app.use(session( { secret: 'keyboard', resave: false, saveUninitialized: false, cookie: { maxAge: 36000000, httpOnly: false } } ));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Give the server access to Tablet Orange files
+// Give the server access to Tablet Orange and Green files
 app.use(express.static(paths.orangeRoot));
+app.use(express.static(paths.greenRoot));
 
 // Make our db accessible to our router
 app.use(function(req,res,next){

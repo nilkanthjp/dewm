@@ -9,13 +9,16 @@ router.get('/:dept*', function(req, res) {
 	var dept = req.param('dept');
 		stack = req.param('stack'),
 		restriction = [0,1,dewm.depts.indexOf(dept)];
+	req.session.access=parseInt(req.session.access);
 	// if user is allowed to view this page
 	if (restriction.indexOf(req.session.access)>-1) {
 		// if viewer is looking for a specific stack
 		if (dewm.depts.indexOf(dept)>-1 && stack !== undefined) {
 			if (req.session.access === 0) { var admin = true; }
 			if (dewm.weeks[req.session.current].files.indexOf(stack)>-1) {
-				res.render(dept, { name: (req.session.fname+" "+req.session.lname), dept:dewm.depts[req.session.access], admin:admin, fname:req.session.fname, dewm:dewm, stack:stack, user:req.session, home:false });
+				var stackIndex = dewm.weeks[req.session.current].files.indexOf(stack),
+					stackContent = dewm.weeks[req.session.current].stacks[stackIndex];
+				res.render(dept, { name: (req.session.fname+" "+req.session.lname), dept:dewm.depts[req.session.access], admin:admin, fname:req.session.fname, dewm:dewm, stack:stackContent, user:req.session, home:false });
 			} else {
 				var issue = stack.split("_")[stack.split("_").length-1];
 				if (dewm.dates.strings.indexOf(issue)>-1) { 

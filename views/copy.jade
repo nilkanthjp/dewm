@@ -2,7 +2,10 @@ extends layout
 
 block content
 	include working
-	+stacks("copy",stack)
+	if(home)
+		+stacks
+	else
+		+stacks("",stack.stack)
 
 block wrapper
 	if(home==true)
@@ -21,5 +24,5 @@ block wrapper
 					li three
 	else
 		div#wrapper.wide
-			+viewer("orange")
+			+viewer(dewm.weeks[user.current].orange.split("/Tablet")[1]+"/Digital Danville/"+stack.stack+"/"+stack.stack+".html","copy")
 			+comments

@@ -11,9 +11,12 @@ var comments = new function() {
 		socket.emit('reqComment', { stack:self.stack, dept:self.dept });
 		socket.on('newComment', function (data) {
 			for (var i=0; i<data.length; i++) {
-				if ( $("#wrapper .comments li#"+data[i]._id).length==0 ) {
-					var timestamp = new Date(data[i].time);
-					$("#wrapper .comments ul").append("<li class='comment' id='"+data[i]._id+"'><div class='timestamp'>"+data[i].name+" at "+self.formatDateForComments(timestamp)+"</div><div class='text'>"+data[i].text+"</div><div class='status "+data[i].status+"'><div class='switch'><div class='switchButton'></div></div></div></li>");
+				var timestamp = new Date(data[i].time),
+					content = "<li class='comment' id='"+data[i]._id+"'><div class='timestamp'>"+data[i].name+" at "+self.formatDateForComments(timestamp)+"</div><div class='text'>"+data[i].text+"</div><div class='status "+data[i].status+"'><div class='switch'><div class='switchButton'></div></div></div></li>";
+				if ( $("#wrapper .comments li#"+data[i]._id).length==0 && $("#wrapper .comments li").length==0 ) {
+					$("#wrapper .comments ul").html(content);
+				} else if ($("#wrapper .comments li#"+data[i]._id).length==0) {
+					$("#wrapper .comments ul").append(content);
 				}
 			}
 			if (data.length == 0) {

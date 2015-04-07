@@ -12,7 +12,7 @@ router.get('/', function(req, res) {
 				var B = b.lname.toUpperCase();
 				return (A < B) ? -1 : (A > B) ? 1 : 0;
 			});
-	        res.render('admin', { users: items, name: (req.session.fname+" "+req.session.lname), dept:dewm.depts[req.session.access], admin:admin, fname:req.session.fname, dewm:dewm });
+	        res.render('admin', { users:items, user:req.session, name: (req.session.fname+" "+req.session.lname), dept:dewm.depts[req.session.access], admin:admin, fname:req.session.fname, dewm:dewm });
 	    });
 	} else {
 		res.redirect('./');

@@ -17,7 +17,7 @@
 	else
 		a.button(href='/views/makeup') m
 		a.button(href='/views/copy') c
-		a.button(href='views/art') a
+		a.button(href='/views/art') a
 	#user
 		h2.userName #{name}
 		h3.userDept #{dept}
@@ -63,21 +63,33 @@ mixin stack(dept,content,status)
 				div.copy
 				div.tablet
 
-mixin viewer(server)
+mixin viewer(url,dept)
 	div.viewer
-		div#sidebar
-			h4 There are currently 4 people reading this piece: 
-				span.bold Alex, Amy, and Ryan.
-			h4 You are assigned 
-				span.bold part 2 of 5 
-				| for this piece. 
-				span.bold
-					a Go &raquo;
-			h2 Pick a size to read on
-			img.ipad(src="/images/ipad.png" width="60%")
-			img.iphone(src="/images/iphone5.png" width="30%")
+		if (dept=="copy")
+			div#sidebar
+				h4 There are currently 4 people reading this piece: 
+					span.bold Alex, Amy, and Ryan.
+				h4 You are assigned 
+					span.bold part 2 of 5 
+					| for this piece. 
+					span.bold
+						a Go &raquo;
+				h2 Pick a size to read on
+				img.ipad(src="/images/ipad.png" width="60%")
+				img.iphone(src="/images/iphone5.png" width="30%")
+		else
+			div#sidebar
+				img.ipad(src="/images/ipad.png" width="34%")
+				img.ipadLandscape(src="/images/ipad-landscape.png" width="44%")
+				img.iphone(src="/images/iphone5.png" width="16%")
 		div#iframe
-			iframe(src=dewm.weeks[user.current][server].split("/Tablet")[1]+"Digital Danville/"+stack+"/"+stack+".html" scroll="yes")
+			iframe(src=url scroll="yes")
+	script(src='/javascripts/viewer.js')
+
+mixin makeupViewer(url)
+	div.viewer
+		div#iframe
+			iframe(src=url scroll="yes")
 	script(src='/javascripts/viewer.js')
 
 mixin comments

@@ -1,3 +1,5 @@
+var _roost = _roost || [];
+
 // Define main properties and methods for "stack" class and get the "dewm" object from node
 $.ajax({
 	type: 'GET',

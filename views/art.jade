@@ -1,0 +1,25 @@
+extends layout
+
+block content
+	include working
+	+stacks("copy",stack)
+
+block wrapper
+	if(home==true)
+		div#wrapper
+			div.welcome
+				h3 Hey there, 
+					span #{fname}
+					|.
+
+				h4 Welcome to the Digital Edition Workflow Manager! You&#8217;re currently assigned the following stacks for the  
+					span.date=dewm.dates.stringsFormatted[dewm.user.current]
+					|  issue:
+				ul
+					li one
+					li two
+					li three
+	else
+		div#wrapper.wide
+			+viewer(dewm.weeks[user.current].green.split("/EDIT")[1]+"/"+stack.stack+"/"+stack.stack+".html")
+			+comments

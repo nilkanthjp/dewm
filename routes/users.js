@@ -26,7 +26,16 @@ router.post('/add', function(req, res) {
 	var db = req.db;
 	db.collection('userlist').insert( req.body, function(err, result) {
 		if (err) { res.send(err) };
-		if (result) { console.log('Added!'); res.send(true); };
+		if (result) { console.log('Added.'); res.send(true); };
+	});
+});
+
+router.post('/delete/:username*', function(req, res) {
+	var db = req.db
+		username = req.param('username');
+	db.collection('userlist').remove( {username:username}, function(err, result) {
+		if (err) { res.send(err) };
+		if (result) { console.log('Deleted.'); res.send(true); };
 	});
 });
 

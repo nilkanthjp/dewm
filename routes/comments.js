@@ -6,9 +6,9 @@ router.get('/', function(req, res) {
 	if (req.session.access === 0) {
 		var stack = req.param('stack'),
 			type = req.param('dept');
-		utils.comments(stack,type,function(comments) {
+		utils.comments(function(comments) {
 			res.json(comments);
-		});
+		},stack,type);
 	} else {
 		res.redirect('/');
 	}

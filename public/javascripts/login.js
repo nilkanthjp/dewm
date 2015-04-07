@@ -75,6 +75,17 @@ var login = new function() {
 		});
 	}
 
+	this.deleteUser = function (username) {
+		$.ajax({
+			type: 'POST',
+			url: '../users/delete/'+username,
+			data: username,
+			dataType: 'JSON'
+		}).done(function( data ) {
+			location.reload();
+		});
+	}
+
 	this.updateUser = function () {
 		var user = {
 			"key":$("div.adminEditBox#adminEditUser form").attr("key"),
