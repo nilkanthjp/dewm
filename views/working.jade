@@ -28,6 +28,7 @@
 					option(value=i, selected="selected") #{date}
 				else
 					option(value=i) #{date}
++alert
 
 mixin stacks(dept,active)
 	ul#stacks(class=dept)
@@ -102,3 +103,34 @@ mixin comments
 			div.newCommentClose(onclick="comments.newCommentToggle()") Close
 		ul
 	script(src='/javascripts/comments.js')
+
+mixin alert
+	div#alert
+		div#alertContent
+			h2 Oh man, a stack was just deleted from the sidecar.
+			h3 You're my only hope! Can you match up the old stack numbers (on the left) with the new ones (on the right)? If one of the old ones has been deleted from the issue, select 'Deleted from issue.' If there's any new stack that's left unmatched, it will be treated like a completely new stack.
+			div.column
+				h2 Old
+				ul
+					li stack one
+					li stack one
+					li stack one
+			div.column
+				h2 New
+				ul
+					li
+						select
+							option one
+							option one
+							option Deleted From Issue
+					li
+						select
+							option one
+							option one
+							option Deleted From Issue
+					li
+						select
+							option one
+							option one
+							option Deleted From Issue
+

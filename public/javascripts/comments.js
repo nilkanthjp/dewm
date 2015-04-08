@@ -6,8 +6,7 @@ var comments = new function() {
 	this.stack = window.location.search.split("stack=")[1];
 
 	this.commentsSocket = function() {
-		var self = this,
-			socket = io.connect(window.location.host);
+		var socket=dewm.socket;
 		socket.emit('reqComment', { stack:self.stack, dept:self.dept });
 		socket.on('newComment', function (data) {
 			for (var i=0; i<data.length; i++) {
