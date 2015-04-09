@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
+var https = require('https');
+var fs = require('fs');
 var paths = require('dewm-paths');
 
 // Declare global dewm variable
@@ -86,6 +88,13 @@ app.use(function(err, req, res, next) {
 });
 
 // start the server for push notifications
+var options = {
+    key: fs.readFileSync(__dirname + '/public/cert/server.key'),
+    cert: fs.readFileSync(__dirname + '/public/cert/server.crt')
+};
+// var server = https.createServer(options, app).listen(3000, function(){
+//     dewm.initSocket(this);
+// });
 var server = app.listen(3000,function(){ dewm.initSocket(this); });
 
 module.exports = app;

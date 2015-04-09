@@ -1,3 +1,6 @@
+var _roost = _roost || [];
+_roost.push(['experimental', true]);
+
 // Define main properties and methods for "stack" class and get the "dewm" object from node
 $.ajax({
 	type: 'GET',
@@ -30,7 +33,22 @@ var stacks = new function() {
 	}
 
 	this.newStack = function(changes) {
-
+		var added=changes[0],
+			deleted=changes[1],
+			nHTML="<li><select>",
+			nFullHTML="",
+			oHTML="";
+		for (var i=0; i<added.length; i++) {
+			nHTML=nHTML+"<option id='"+added[i]+"'>"+added[i]+"</option>"
+		}
+		nHTML=nHTML+"<option id='deleted'>Deleted</option></select></li>"
+		for (var i=0; i<deleted.length; i++) {
+			nFullHTML=nFullHTML+nHTML;
+			oHTML=oHTML+"<li id='"+deleted[i]+"'>"+deleted[i]+"</li>";
+		}
+		$("#alertContent #new ul").html(nFullHTML)
+		$("#alertContent #old ul").html(oHTML)
+		$("#alert").show()
 	}
 
 	$( "#header #issues #week" ).change(function() {
