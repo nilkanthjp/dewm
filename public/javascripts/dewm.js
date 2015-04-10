@@ -8,7 +8,7 @@ $.ajax({
 }).done(function( data ) {
 	dewm = data;
 	dewm.socket = io.connect(window.location.host);
-	dewm.socket.on('newStack', function (changes) { stacks.newStack(changes);});
+	stacks.sockets();
 	if ($("#wrapper .comments").length>0) { comments.commentsSocket(); };
 });
 
@@ -32,6 +32,13 @@ var stacks = new function() {
 		});
 	}
 
+	this.sockets = function() {
+		var self=this;
+		if (dewm.user.access<2) { 
+			dewm.socket.on('newStack', function (changes) { self.newStack(changes); }); 
+		}
+	}
+
 	this.newStack = function(changes) {
 		var added=changes[0],
 			deleted=changes[1],
@@ -50,6 +57,34 @@ var stacks = new function() {
 		$("#alertContent #old ul").html(oHTML)
 		$("#alert").show()
 	}
+
+	$( "#alert #submit" ).click(function(){
+		var matched=[],
+			deleted=[],
+			added=[],
+			actions={};
+		$("#alert #old li").each(function() { 
+			deleted.push($(this).text()) 
+		});
+		$("#alert #new li:first-child option").each(function() { 
+			added.push($(this).text()) 
+		});
+		$("#alert #new select").each(function(i) { 
+			var action=$(this).val();
+			matched.push(action);
+			if (action=="Deleted") {
+				actions[deleted[i]]=false;
+			} else {
+				actions[deleted[i]]=action;
+			}
+		});
+		toDelete=added.diff(matched);
+		console.log(toDelete);
+	})
+
+	$( "#alert #close" ).click(function(){
+		$("#alert").hide();
+	})
 
 	$( "#header #issues #week" ).change(function() {
 		var newWeek = $(this).val();

@@ -340,6 +340,7 @@ input, textarea {
 	width:50%;
 	display: inline-block;
 	margin-top: 15px;
+	text-align: center;
 }
 
 #alert #alertContent .column ul li {

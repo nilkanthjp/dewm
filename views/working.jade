@@ -108,33 +108,15 @@ mixin alert
 	div#alert
 		div#alertContent
 			h2 Oh man, a stack was just deleted from the sidecar.
-			h3 You're my only hope! Can you match up the old stack numbers (on the left) with the new ones (on the right)? If one of the old ones has been deleted from the issue, select 'Deleted from issue.' If there's any new stack that's left unmatched, it will be treated like a completely new stack.
+			h3 You're my only hope! Can you match up the old stack numbers (on the left) with the new ones (on the right)? If one of the old ones has been deleted from the issue, select 'Deleted.' If there's any new stack that's left unmatched, it will be treated like a completely new stack.
 			div.column#old
-				h2 Old
+				h2 Deleted
 				ul
-					li stack one
-					li stack one
-					li stack one
 			div.column#new
-				h2 New
+				h2 Added
 				ul
-					li
-						select
-							option one
-							option one
-							option Deleted From Issue
-					li
-						select
-							option one
-							option one
-							option Deleted From Issue
-					li
-						select
-							option one
-							option one
-							option Deleted From Issue
 			div.column
-				div.button I'm not the one for you
+				div.button#close Someone else is doing it
 			div.column
-				div.button I'm not the one for you 
+				div.button#submit Submit 
 
