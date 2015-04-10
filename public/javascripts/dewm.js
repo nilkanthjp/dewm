@@ -62,7 +62,8 @@ var stacks = new function() {
 		var matched=[],
 			deleted=[],
 			added=[],
-			actions={};
+			actions={},
+			toDelete=[];
 		$("#alert #old li").each(function() { 
 			deleted.push($(this).text()) 
 		});
@@ -78,8 +79,8 @@ var stacks = new function() {
 				actions[deleted[i]]=action;
 			}
 		});
-		toDelete=added.diff(matched);
-		console.log(toDelete);
+		var toAdd=added.diff(matched).remove('Deleted');
+		dewm.socket.emit('reqStack', [actions,toAdd]);
 	})
 
 	$( "#alert #close" ).click(function(){
