@@ -3,7 +3,6 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-var session = require('express-session');
 var bodyParser = require('body-parser');
 var https = require('https');
 var fs = require('fs');
@@ -16,6 +15,7 @@ dewm = require('dewm');
 var mongo = require('mongoskin');
 var db = mongo.db(paths.mongo.host+paths.mongo.db, {native_parser:true});
 
+// Routes
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var dewmroute = require('./routes/dewm');
@@ -26,22 +26,24 @@ var comments = require('./routes/comments');
 var app = express();
 var router = express.Router();
 
-// view engine setup
+// View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.set('trust proxy', 1)
 
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
-app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(session( { secret: 'keyboard', resave: false, saveUninitialized: false, cookie: { maxAge: 36000000, httpOnly: false } } ));
-app.use(express.static(path.join(__dirname, 'public')));
 
-// Give the server access to Tablet Orange and Green files
+// Session + Cookies setup
+var session = require("express-session")({ secret: 'keyboard', resave: false, saveUninitialized: true, cookie: { maxAge: 36000000, httpOnly: true } })
+app.use(cookieParser());
+app.use(session);
+
+// Give the server access to Tablet Orange and Green files as well as common public files
 app.use(express.static(paths.orangeRoot));
 app.use(express.static(paths.greenRoot));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Make our db accessible to our router
 app.use(function(req,res,next){
@@ -88,13 +90,15 @@ app.use(function(err, req, res, next) {
 });
 
 // start the server for push notifications
-var options = {
-    key: fs.readFileSync(__dirname + '/public/cert/server.key'),
-    cert: fs.readFileSync(__dirname + '/public/cert/server.crt')
-};
+// var options = {
+//     key: fs.readFileSync(__dirname + '/public/cert/key.pem'),
+//     cert: fs.readFileSync(__dirname + '/public/cert/cert.pem'),
+//     requestCert: false,
+//     rejectUnauthorized: false
+// };
 // var server = https.createServer(options, app).listen(3000, function(){
-//     dewm.initSocket(this);
+//     dewm.initSocket(this,session);
 // });
-var server = app.listen(3000,function(){ dewm.initSocket(this); });
+var server = app.listen(3000,function() { dewm.initSocket(this,session) });
 
 module.exports = app;

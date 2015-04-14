@@ -644,6 +644,7 @@ input, textarea {
 #wrapper.makeup .viewer {
 	margin-top:10px;
 	display: inline-block;
+	display: none;
 }
 
 #wrapper .comments {
@@ -737,28 +738,28 @@ input, textarea {
 	font-family: Caslon;
 }
 
-#wrapper .comments ul li div.status {
+#wrapper ul li div.status {
 	width:calc(15% - 10px);
 	text-align: center;
 }
 
-#wrapper .comments ul li div.status .switch {
-	width:40px;
+#wrapper ul li div.status .switch {
+	width:45px;
 	height:25px;
 	margin-left:calc(50% - 20px);
 	border-radius:25px;
 	padding: 0;
 }
 
-#wrapper .comments ul li div.status.false .switch {
+#wrapper ul li div.status.false .switch {
 	background:red;
 }
 
-#wrapper .comments ul li div.status.true .switch {
+#wrapper ul li div.status.true .switch {
 	background:#39cb00;
 }
 
-#wrapper .comments ul li div.status .switch .switchButton {
+#wrapper ul li div.status .switch .switchButton {
 	height:23px;
 	width:23px;
 	padding: 0;
@@ -768,12 +769,12 @@ input, textarea {
 	cursor: pointer;
 }
 
-#wrapper .comments ul li div.status.false .switch .switchButton {
+#wrapper ul li div.status.false .switch .switchButton {
 	border-color:red;
 	margin-left:0px;
 }
 
-#wrapper .comments ul li div.status.true .switch .switchButton {
+#wrapper ul li div.status.true .switch .switchButton {
 	border-color:#39cb00;
 	margin-left:20px;
 }
@@ -811,53 +812,89 @@ input, textarea {
 	font-style:italic;
 }
 
-#wrapper.makeup .meta {
-	width:calc(100% - 30px);
-	background:#f8f8f8;
-	padding:5px 15px;
+#wrapper.makeup .buttons {
+	width:30%;
+	float:right;
 	margin-top:10px;
 }
 
-#wrapper.makeup .action {
-	width:calc(50% - 35px);
-	background:#f8f8f8;
-	padding:5px 15px;
-	margin:10px 0px;
-	margin-right:5px;
+#wrapper.makeup .meta {
+	width:calc(70% - 30px);
+	padding:0px;
+	margin-top:10px;
 	float:left;
 }
 
-#wrapper.makeup .action.right {
-	margin-right:0px;
-	margin-left:5px;
+#wrapper.makeup .buttons .button {
+	width:calc(100% - 20px);
+	margin-top:0;
+	margin-bottom:5px;
+	text-align: center;
 }
 
-#wrapper.makeup ul {
+#wrapper.makeup .buttons .button a {
+	color:white;
+}
+
+#wrapper.makeup .status, #wrapper.makeup .actions {
+	width:100%;
+	padding:5px 0px;
+	margin:10px 0px;
+	margin-top:0;
+	float:left;
+}
+
+#wrapper.makeup .status ul.overview {
 	text-align: left;
 	margin-top:5px;
 }
 
-#wrapper.makeup ul li {
-	width:100%;
-	margin:2px 0;
+#wrapper.makeup .status ul.overview li, #wrapper.makeup .status ul.depth li, #wrapper.makeup .actions ul li {
+	width:calc(33.33% - 2px);
 	display: inline-block;
+	text-transform: uppercase;
+	color: white;
+	font-weight: 800;
+	font-size: 12px;
+	padding:5px 0;
+	margin:0 1px;
+	text-align: center;
+	background: #d3d3d3;
+	cursor:pointer;
+	float:left;
 }
 
-#wrapper.makeup .action .status {
-	width: 20px;
-	height: 20px;
-	background: red;
-	border-radius: 10px;
-	float: left;
+#wrapper.makeup .status ul.overview li.red, #wrapper.makeup .status ul.depth li .chart .arc.red {
+	background:#940000;
+	fill:#940000;
 }
 
-#wrapper.makeup .action .makeup .status {
-	background:green;
+#wrapper.makeup .status ul.overview li.orange, #wrapper.makeup .status ul.depth li .chart .arc.orange {
+	background:#f0a417;
+	fill:#f0a417;
 }
 
-#wrapper.makeup .action .text {
-	float: left;
-	margin: 5px 10px;
+#wrapper.makeup .status ul.overview li.green, #wrapper.makeup .status ul.depth li .chart .arc.green {
+	background:#10ad00;
+	fill:#10ad00;
+}
+
+#wrapper.makeup .status ul.overview li:first-child {
+	border-radius:7px 0 0 7px;
+}
+
+#wrapper.makeup .status ul.overview li:last-child {
+	border-radius:0 7px 7px 0;
+}
+
+#wrapper.makeup .status ul.depth li {
+	background: none;
+	color: black;
+	float:left;
+}
+
+#wrapper.makeup .status ul.depth li:first-child {
+	margin-left: 0;
 }
 
 #wrapper.makeup div h2 {
@@ -865,9 +902,95 @@ input, textarea {
 	margin:0;
 }
 
-#wrapper.makeup .action:first-child {
-	margin-right:0;
-	margin-left:1%;
+#wrapper.makeup .status ul.depth li .chart {
+    width: 100%;
+    float: left;
+}
+
+#wrapper.makeup .status ul.depth li rect {
+	fill: #FFFFFF;
+	fill-opacity: 0.01;
+}
+
+#wrapper.makeup .status ul.depth li path {
+	fill:#f8f8f8;
+}
+
+#wrapper.makeup .status ul.depth li p {
+	width:80%;
+	margin:auto;
+	font-family: Caslon;
+	font-style: italic;
+	text-transform:none;
+	font-weight: normal;
+	font-size:16px;
+	line-height: 20px;
+	letter-spacing: 0;
+	text-align: center;
+}
+
+#wrapper.makeup .actions ul li {
+	background:none;
+	color:black;
+}
+
+#wrapper.makeup .actions ul li h2, #wrapper.makeup .actions ul li h3 {
+	text-align: center;
+	margin:0;
+	padding: 0;
+	cursor: auto;
+	margin-bottom:5px;
+}
+
+#wrapper.makeup .actions ul li h3 {
+	text-transform: none;
+	font-size: 14px;
+}
+
+#wrapper.makeup .actions ul li h2 .edit {
+	display: inline;
+	font-size: 10px;
+	background: #d3d3d3;
+	padding: 5px;
+	margin-left: 10px;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+	position: relative;
+	top: -2px;
+}
+
+#wrapper.makeup .actions ul li .button {
+	margin:auto;
+}
+
+#wrapper.makeup .actions ul li .status {
+	padding-bottom:0;
+	margin-bottom:0;
+	border-bottom: 1px dotted #d3d3d3;
+}
+
+#wrapper.makeup .actions ul li p {
+	width: calc(100% - 60px);
+	padding-right: 10px;
+	float: left;
+	text-align: left;	
+}
+
+#wrapper.makeup .actions ul li p.narrow {
+	width: calc(100% - 100px);
+}
+
+#wrapper.makeup .actions ul li p.layout {
+	width:90px;
+	text-align: center;
+	padding:0;
+	font-family:NeutraDemi;
+}
+
+#wrapper.makeup .actions ul li .status .switch {
+	margin-left:0;
+	float: left;
 }
 
 @media (max-width: 800px) {

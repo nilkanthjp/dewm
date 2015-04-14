@@ -1,6 +1,3 @@
-var _roost = _roost || [];
-_roost.push(['experimental', true]);
-
 // Define main properties and methods for "stack" class and get the "dewm" object from node
 $.ajax({
 	type: 'GET',
@@ -35,20 +32,21 @@ var stacks = new function() {
 	this.sockets = function() {
 		var self=this;
 		if (dewm.user.access<2) { 
-			dewm.socket.on('newStack', function (changes) { self.newStack(changes); }); 
+			dewm.socket.on('newStack', function (changes) { self.newStack(changes); });
+			dewm.socket.on('endStack', function() { $("#alert").hide(); });
 		}
 	}
 
 	this.newStack = function(changes) {
 		var added=changes[0],
 			deleted=changes[1],
-			nHTML="<li><select>",
+			nHTML="<li><select><option id='deleted'>Deleted</option>",
 			nFullHTML="",
 			oHTML="";
 		for (var i=0; i<added.length; i++) {
 			nHTML=nHTML+"<option id='"+added[i]+"'>"+added[i]+"</option>"
 		}
-		nHTML=nHTML+"<option id='deleted'>Deleted</option></select></li>"
+		nHTML=nHTML+"</select></li>"
 		for (var i=0; i<deleted.length; i++) {
 			nFullHTML=nFullHTML+nHTML;
 			oHTML=oHTML+"<li id='"+deleted[i]+"'>"+deleted[i]+"</li>";
@@ -59,28 +57,25 @@ var stacks = new function() {
 	}
 
 	$( "#alert #submit" ).click(function(){
-		var matched=[],
-			deleted=[],
-			added=[],
+		var deleted=$.makeArray($("#alert #old").find('li').map(function(){return $(this).text();})),
+			added=$.makeArray($("#alert #new li:first-child").find('option').map(function(){return $(this).text();})).remove('Deleted'),
 			actions={},
-			toDelete=[];
-		$("#alert #old li").each(function() { 
-			deleted.push($(this).text()) 
-		});
-		$("#alert #new li:first-child option").each(function() { 
-			added.push($(this).text()) 
-		});
+			matched=[];
 		$("#alert #new select").each(function(i) { 
 			var action=$(this).val();
 			matched.push(action);
+			added.remove(action);
 			if (action=="Deleted") {
 				actions[deleted[i]]=false;
 			} else {
 				actions[deleted[i]]=action;
-			}
+			};
 		});
-		var toAdd=added.diff(matched).remove('Deleted');
-		dewm.socket.emit('reqStack', [actions,toAdd]);
+		for (var i=0; i<added.length; i++) {
+			actions[added[i]]=true;
+		}
+		dewm.socket.emit('reqStack', [actions,dewm.user.current]);
+		window.location=window.location.href
 	})
 
 	$( "#alert #close" ).click(function(){

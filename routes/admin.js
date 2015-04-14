@@ -6,7 +6,7 @@ router.get('/', function(req, res) {
 		if (req.session.access === 0) { var admin = true; }
 		else { var admin = false; }
 	    var db = req.db;
-	    db.collection('userlist').find({},{ "password":false }).toArray(function (err, items) {
+	    db.collection('users').find({},{ "password":false }).toArray(function (err, items) {
 	    	var items = items.sort(function(a, b) {
 				var A = a.lname.toUpperCase();
 				var B = b.lname.toUpperCase();

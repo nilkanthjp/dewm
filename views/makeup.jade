@@ -22,43 +22,69 @@ block wrapper
 					span.info=stack.xmlfilename
 				p Assigned to 
 					span.info Alex, Amy, and Ryan
-				p This stack is currently being read by Alex, Amy, and Ryan.
-				p
-					a(target="_blank" href=dewm.weeks[user.current].orange.split("/Tablet")[1]+"/Digital Danville/"+stack.stack+"/"+stack.stack+".html") Open Danville.
-				p
-					a(target="_blank" href=dewm.weeks[user.current].green.split("/EDIT")[1]+"/"+stack.stack+"/"+stack.stack+".html") Open Tablet version.
+			div.buttons
+				p.button
+					a(target="_blank" href=dewm.weeks[user.current].orange.split("/Tablet")[1]+"/Digital Danville/"+stack.stack+"/"+stack.stack+".html") Open Digital Danville
+				p.button
+					a(target="_blank" href=dewm.weeks[user.current].green.split("/EDIT")[1]+"/"+stack.stack+"/"+stack.stack+".html") Open App Article
 
-			div.action
-				h2 Actions
-				ul
-					li.xml
-						div.status
-						div.text XML Status
+			div.status
+				ul.overview
+					li.copy Danville
+					li.art Art
+					li.makeup App
+				ul.depth
 					li.copy
-						div.status
-						div.text Copy Status
+						div.chart
+						p 0 comments have been added. 2 of 3 copy readers have signed off on the Digital Danville.
 					li.art
-						div.status
-						div.text Art Status
+						div.chart
+						p 0 of 6 tasks have been completed.
 					li.makeup
-						div.status
-						div.text Tablet Status
+						div.chart
+						p App layout is not yet ready to be built.
 
-			div.action.right
-				h2 Actions
+			div.actions
 				ul
-					li.xml
-						div.status
-						div.text Copy Status
 					li.copy
-						div.status
-						div.text Copy Status
+						div.button Build Digital Danville
 					li.art
-						div.status
-						div.text Copy Status
+						h3 Art Point Person
+						h2 Nilkanth Patel
+							div.edit Edit
+						div.status.true
+							p Dropped into new scans
+							div.switch
+								div.switchButton
+						div.status.true
+							p Crop Made by Art
+							div.switch
+								div.switchButton
+						div.status.false 
+							p Resized by Makeup
+							div.switch
+								div.switchButton
+						div.status.false
+							p Wordpress Uploaded
+							div.switch
+								div.switchButton
+						div.status.false
+							p Wordpress Cropped
+							div.switch
+								div.switchButton
+						div.status.false
+							p Wordpress Crops Resized
+							div.switch
+								div.switchButton
+						div.status.false
+							p.narrow Layout
+							p.layout None
 					li.makeup
-						div.status
-						div.text Copy Status
+						div.button Build App Article
 
 			+viewer(dewm.weeks[user.current].green.split("/EDIT")[1]+"/"+stack.stack+"/"+stack.stack+".html")
+
+		script(src='/javascripts/d3.min.js')
+		script(src='/javascripts/radial.js')
+		script(src='/javascripts/makeup.js')
 

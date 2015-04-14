@@ -4,7 +4,7 @@ var router = express.Router();
 /* POST to login user. */
 router.post('/login', function(req, res) {
 	var db = req.db;
-	db.collection('userlist').find( {username:req.body.username, password:req.body.password} ).toArray(function(err, result) {
+	db.collection('users').find( {username:req.body.username, password:req.body.password} ).toArray(function(err, result) {
 		if (result.length>0) {
 			req.session.username = req.body.username;
 			req.session.fname = result[0].fname;
@@ -24,7 +24,7 @@ router.post('/login', function(req, res) {
 
 router.post('/add', function(req, res) {
 	var db = req.db;
-	db.collection('userlist').insert( req.body, function(err, result) {
+	db.collection('users').insert( req.body, function(err, result) {
 		if (err) { res.send(err) };
 		if (result) { console.log('Added.'); res.send(true); };
 	});
@@ -33,7 +33,7 @@ router.post('/add', function(req, res) {
 router.post('/delete/:username*', function(req, res) {
 	var db = req.db
 		username = req.param('username');
-	db.collection('userlist').remove( {username:username}, function(err, result) {
+	db.collection('users').remove( {username:username}, function(err, result) {
 		if (err) { res.send(err) };
 		if (result) { console.log('Deleted.'); res.send(true); };
 	});
@@ -44,7 +44,7 @@ router.put('/edit', function(req, res) {
 	var update = req.body;
 	var key = req.body.key;
 	delete update.key;
-	db.collection('userlist').update( { username:key }, { $set:update }, function(err, result) {
+	db.collection('users').update( { username:key }, { $set:update }, function(err, result) {
 		if (err) { res.send(err) };
 		if (result) { console.log('Updated '+key); res.send(true); };
 	});
@@ -53,7 +53,7 @@ router.put('/edit', function(req, res) {
 router.get('/userlist', function(req, res) {
 	if (req.session.access === 0) {	
 		var db = req.db;
-		db.collection('userlist').find({},{ "password":false }).toArray(function (err, items) {
+		db.collection('users').find({},{ "password":false }).toArray(function (err, items) {
 			res.json(items);
 		});
 	} else {
@@ -64,7 +64,7 @@ router.get('/userlist', function(req, res) {
 router.get('/user/:id*', function(req, res) {
 	if (req.session.access === 0) {
 		var db = req.db;
-		db.collection('userlist').find({username:req.param('id')}).toArray(function (err, items) {
+		db.collection('users').find({username:req.param('id')}).toArray(function (err, items) {
 			res.json(items[0])
 		});		
 	} else {
