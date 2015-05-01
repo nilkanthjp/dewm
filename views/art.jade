@@ -2,7 +2,7 @@ extends layout
 
 block content
 	include working
-	+stacks("copy",stack)
+	+stacks("art",stack)
 
 block wrapper
 	if(home==true)
@@ -12,14 +12,16 @@ block wrapper
 					span #{fname}
 					|.
 
-				h4 Welcome to the Digital Edition Workflow Manager! You&#8217;re currently assigned the following stacks for the  
-					span.date=dewm.dates.stringsFormatted[dewm.user.current]
-					|  issue:
-				ul
-					li one
-					li two
-					li three
+				if dept=="copy"
+					h4 Welcome to the Digital Edition Workflow Manager! At left, you&#8217'll see the stacks you can updates statuses for in the  
+						span.date=dewm.dates.stringsFormatted[dewm.user.current]
+						|  issue.
+				else
+					h4 Welcome to the art section. As a member of the Makeup department (fancy!), you can check in on any one of the stacks for the 
+						span.date=dewm.dates.stringsFormatted[dewm.user.current]
+						|  issue at left.
 	else
 		div#wrapper.wide
 			+viewer(dewm.weeks[user.current].green.split("/EDIT")[1]+"/"+stack.stack+"/"+stack.stack+".html")
 			+comments
+		script(src='/javascripts/art.js')

@@ -27,8 +27,8 @@ var login = new function() {
 				url: '/users/add',
 				dataType: 'text'
 			}).done(function( response ) { 
-				if (response === true) {
-					window.setTimeout(function(){ location.reload(); },100);
+				if (response == "true") {
+					location.reload()
 				} else {
 					var error = $.parseJSON(response);
 					if (error.code == 11000) {

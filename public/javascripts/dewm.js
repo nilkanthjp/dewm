@@ -20,12 +20,8 @@ var stacks = new function() {
 			data: {"week":week},
 			url: '/dewm/week',
 			dataType: 'text'
-		}).done(function( response ) {
-			if (response.length>1) {
-				alert(response);
-			} else {
-				window.location.href="http://"+window.location.host+window.location.pathname;
-			}
+		}).done(function() {
+			location.reload();
 		});
 	}
 
@@ -34,7 +30,18 @@ var stacks = new function() {
 		if (dewm.user.access<2) { 
 			dewm.socket.on('newStack', function (changes) { self.newStack(changes); });
 			dewm.socket.on('endStack', function() { $("#alert").hide(); });
-		}
+		};
+		dewm.socket.on('assignments', function(s) {
+			if (stacks.currentStack && s==stacks.currentStack) { 
+				if (dewm.user.access<=1 && stacks.dept=="makeup") { makeup.init(); }
+				else if (dewm.user.access<=1 && stacks.dept=="art") { art.init(); }
+				else if (dewm.user.access==2) { copy.init(); }
+			};
+		});
+		$( "#header #issues #week" ).change(function() {
+			var newWeek = $(this).val();
+			self.changeWeek(newWeek);
+		});
 	}
 
 	this.newStack = function(changes) {
@@ -53,10 +60,12 @@ var stacks = new function() {
 		}
 		$("#alertContent #new ul").html(nFullHTML)
 		$("#alertContent #old ul").html(oHTML)
+		$("#alert #submit").click(function(){self.submit()});
+		$("#alert #close").click(function(){$("#alert").hide();})
 		$("#alert").show()
 	}
 
-	$( "#alert #submit" ).click(function(){
+	this.submit = function() {
 		var deleted=$.makeArray($("#alert #old").find('li').map(function(){return $(this).text();})),
 			added=$.makeArray($("#alert #new li:first-child").find('option').map(function(){return $(this).text();})).remove('Deleted'),
 			actions={},
@@ -76,15 +85,6 @@ var stacks = new function() {
 		}
 		dewm.socket.emit('reqStack', [actions,dewm.user.current]);
 		window.location=window.location.href
-	})
-
-	$( "#alert #close" ).click(function(){
-		$("#alert").hide();
-	})
-
-	$( "#header #issues #week" ).change(function() {
-		var newWeek = $(this).val();
-		self.changeWeek(newWeek);
-	});
+	};
 
 }

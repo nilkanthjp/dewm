@@ -8,11 +8,7 @@ router.get('/', function(req, res) {
 		if (req.session.access === 0) { var admin = true; }
 		else { var admin = false; }
 		if (dewm.weeks[req.session.current] == undefined) { dewm.setWeek(req.session,current-1); };
-		if (req.session.access<2) {
-			res.render('index', { name: (req.session.fname+" "+req.session.lname), dept:dewm.depts[req.session.access], admin:admin, fname:req.session.fname, user:req.session, dewm:dewm, logged:true });
-		} else {
-			res.redirect("views/"+dewm.depts[req.session.access]);
-		}
+		res.redirect("views/"+dewm.depts[req.session.access]);
 	} else {
 		res.render('index', { title: 'TNY Digital Edition Workflow Manager',logged:false });
 	}

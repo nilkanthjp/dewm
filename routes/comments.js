@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var utils = require('dewm-utils');
+var mongo = require('mongodb');
 
 router.get('/', function(req, res) {
 	if (req.session.access === 0) {
@@ -27,8 +28,11 @@ router.put('/edit', function(req, res) {
 	var db = req.db,
 		update = {status:req.body.status},
 		key = new mongo.BSONPure.ObjectID(req.body._id);
+	if (update.status == "true" || update.status == "false") {
+		update.status = JSON.parse(update.status);
+	};
 	db.collection('comments').update( { _id:key }, { $set:update }, function(err, result) {
-		if (err) { res.send(err) };
+		if (err) { res.send(err); };
 		if (result) { console.log('Updated comment with id: '+key); res.send(true); };
 	});
 });

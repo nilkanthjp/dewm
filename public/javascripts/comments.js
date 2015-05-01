@@ -23,6 +23,7 @@ var comments = new function() {
 			}
 			self.activateSwitches();
 		});
+		if (dewm.depts[dewm.user.access]=="copy") { socket.emit('reading', { stack:self.stack, username:dewm.user.username }); }
 	};
 
 	this.newCommentClose = function() { $("#wrapper .comments .newComment").animate({height:0},100); };
@@ -53,31 +54,22 @@ var comments = new function() {
 		}).done(function( response ) { 
 			$("#wrapper .comments .newComment").val("")
 			self.newCommentClose();
-			self.refreshComments();
 		});
 	};
 
 	this.activateSwitches = function() {
 		$("#wrapper .comments ul li div.status .switch .switchButton").click(function() {
-			var id = $(this).parent().parent().parent().attr("id");
-			if ( $("#wrapper .comments ul li#"+id+" div.status").attr("class").split(" ")[1] == "false" ) {
-				newClass = "true";
-				newMargin = "20px";
-			} else {
-				newClass = "false";
-				newMargin = "0px";
-			}
-			var updatedComment = { _id:id, status:newClass };
+			var id = $(this).parent().parent().parent().attr("id"),
+				opt = ["true","false"],
+				status = $("#wrapper .comments ul li#"+id+" div.status");
+			utils.toggle($(this),status);
+			status = utils.opposite(status.attr("class").split(" ")[1]);
+			updatedComment = { _id:id, status:status };
 			$.ajax({
 				type: 'PUT',
 				data: updatedComment,
 				url: '../comments/edit',
 				dataType: 'JSON'
-			});
-			$(this).animate({marginLeft:newMargin},100,function() {
-				$("#wrapper .comments ul li#"+id+" div.status").removeClass("false");
-				$("#wrapper .comments ul li#"+id+" div.status").removeClass("true");
-				$("#wrapper .comments ul li#"+id+" div.status").addClass(newClass);
 			});
 		})
 	}

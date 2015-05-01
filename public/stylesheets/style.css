@@ -185,10 +185,10 @@ input, textarea {
 	width: 100%;
 	height: 50px;
 	background: #f8f8f8;
-	background: rgba(250,250,250,.95);
+	background: rgba(250,250,250,.9);
 	top: 0;
 	box-shadow: 0 0 10px rgba(0,0,0,.3);
-	z-index:1;
+	z-index:2;
 }
 
 #header #eustace {
@@ -241,6 +241,11 @@ input, textarea {
 	font-size:13px;
 	margin:0;
 	padding:0;
+}
+
+#header select {
+	margin-top:0;
+	background: white;
 }
 
 #header .button {
@@ -348,6 +353,14 @@ input, textarea {
 	text-align:center;
 }
 
+#alert #alertContent select {
+	margin:0;
+	padding:0;
+	padding-left:10px;
+	border-radius: 0;
+	height:inherit;
+}
+
 /* Admin Page Styline */
 
 #admin {
@@ -444,10 +457,10 @@ input, textarea {
 	margin:10px 0px;
 }
 
-#adminEdit select {
+select {
 	font-family: NeutraLight;
 	-webkit-appearance: none;
-	border:1px solid gray;
+	border:1px solid #d3d3d3;
 	height: 30px;
 	font-size:13px;
 	color:gray;
@@ -486,9 +499,10 @@ input, textarea {
 	position:fixed;
 	top:50px;
 	height:calc(100% - 50px);
-	overflow-y:scroll;
+	overflow-y:auto;
 	overflow-x:hidden;
 	border-right:1px solid #e0e0e0;
+	z-index: 1;
 }
 
 #stacks .stack {
@@ -585,7 +599,6 @@ input, textarea {
 
 #wrapper .viewer {
 	width:calc(100% - 20px);
-	height:calc(100% - 80px);
 	min-width: 970px;
 	padding:30px 10px;
 	margin:10px 0;
@@ -609,9 +622,67 @@ input, textarea {
 	margin:25px 0;
 }
 
+
+#wrapper .viewer #sidebar div {
+	margin-top:25px;
+}
+
+#wrapper .viewer #sidebar div.switch, #wrapper .viewer #sidebar div.switchButton, #wrapper .viewer #sidebar div.status {
+	margin-top:0;
+}
+
+#wrapper .viewer #sidebar h4.approve {
+	margin:5px 0;
+}
+
+#wrapper .viewer #sidebar div.switch {
+	margin:0;
+}
+
 #wrapper .viewer #sidebar img {
 	cursor: pointer;
 	margin:0 1%;
+}
+
+/* art viewer styling */
+
+#wrapper .viewer #sidebar .art_status {
+	display:inline-block;
+	margin-bottom: 5px;
+	padding-bottom:5px;
+	border-bottom:1px dotted #e0e0e0;
+	margin-top:0;
+	width: 100%;
+}
+
+#wrapper .viewer #sidebar .art_status:last-child {
+	border-bottom: 0;
+}
+
+#wrapper .viewer #sidebar .art_status h4 {
+	margin:0;
+	font-size:14px;
+	float:left;
+	width:calc(100% - 45px);
+	margin-right:10px;
+	text-align: right;
+}
+
+#wrapper .viewer #sidebar .art_status div {
+	float:left;
+}  
+#wrapper .viewer #sidebar .art_status .switch {
+	width: 35px;
+	height: 20px;
+}
+
+#wrapper .viewer #sidebar .art_status .switchButton {
+	height:18px;
+	width:18px;
+}
+
+#wrapper .viewer #sidebar .art_status div.status.true .switchButton {
+	margin-left:15px;
 }
 
 #wrapper #readers {
@@ -629,7 +700,7 @@ input, textarea {
 
 #wrapper .viewer iframe {
 	width:320px;
-	height:100%;
+	height:480px;
 	background: white;
 	border:1px solid gray;
 	margin:auto;
@@ -649,6 +720,7 @@ input, textarea {
 
 #wrapper .comments {
 	width:calc(100% - 60px);
+	height:calc(100% - 618px);
 	padding:30px;
 	background:#f8f8f8;
 }
@@ -743,7 +815,7 @@ input, textarea {
 	text-align: center;
 }
 
-#wrapper ul li div.status .switch {
+#wrapper div.status .switch {
 	width:45px;
 	height:25px;
 	margin-left:calc(50% - 20px);
@@ -751,15 +823,15 @@ input, textarea {
 	padding: 0;
 }
 
-#wrapper ul li div.status.false .switch {
+#wrapper div.status.false .switch {
 	background:red;
 }
 
-#wrapper ul li div.status.true .switch {
+#wrapper div.status.true .switch {
 	background:#39cb00;
 }
 
-#wrapper ul li div.status .switch .switchButton {
+#wrapper div.status .switch .switchButton {
 	height:23px;
 	width:23px;
 	padding: 0;
@@ -769,12 +841,12 @@ input, textarea {
 	cursor: pointer;
 }
 
-#wrapper ul li div.status.false .switch .switchButton {
+#wrapper div.status.false .switch .switchButton {
 	border-color:red;
 	margin-left:0px;
 }
 
-#wrapper ul li div.status.true .switch .switchButton {
+#wrapper div.status.true .switch .switchButton {
 	border-color:#39cb00;
 	margin-left:20px;
 }
@@ -947,7 +1019,7 @@ input, textarea {
 	font-size: 14px;
 }
 
-#wrapper.makeup .actions ul li h2 .edit {
+#wrapper.makeup .actions .edit {
 	display: inline;
 	font-size: 10px;
 	background: #d3d3d3;
@@ -962,23 +1034,78 @@ input, textarea {
 
 #wrapper.makeup .actions ul li .button {
 	margin:auto;
+	margin-bottom:10px;
 }
 
 #wrapper.makeup .actions ul li .status {
 	padding-bottom:0;
 	margin-bottom:0;
-	border-bottom: 1px dotted #d3d3d3;
+	border-top: 1px dotted #d3d3d3;
+}
+
+#wrapper.makeup .actions ul li .status.first {
+	border-top:1px white solid;
+	padding-top: 0;
+}
+
+#wrapper.makeup .actions ul li .status.active {
+	background:#fffcca;
 }
 
 #wrapper.makeup .actions ul li p {
 	width: calc(100% - 60px);
+	margin: 15px 0;
+	margin-top: 13px;
 	padding-right: 10px;
 	float: left;
 	text-align: left;	
 }
 
+#wrapper.makeup .actions ul li div.status .switch {
+	margin-top:5px;
+	cursor: pointer;
+}
+
+#wrapper.makeup .actions ul li div.status {
+	width:calc(100% - 40px);
+	margin:0 20px;
+	cursor: default;
+}
+
+#wrapper.makeup .actions ul li div.status span {
+	font-family: Caslon;
+	text-transform: none;
+	letter-spacing: 0;
+	font-style: italic;
+	font-size: 12px;
+	font-weight: normal;
+}
+
 #wrapper.makeup .actions ul li p.narrow {
 	width: calc(100% - 100px);
+}
+
+#wrapper.makeup .actions ul li p.wide {
+	width:100%;
+	text-align: center;
+	font-family:NeutraDemi;
+}
+
+#wrapper.makeup .actions ul li p.add { 
+	width: calc(100% - 60px);
+}
+
+#wrapper.makeup .actions ul li div.change {
+	width: 20px;
+	height: 20px;
+	background: red;
+	border-radius: 10px;
+	float: left;
+	color: white;
+	margin: 8px 10px 5px 5px;
+	font-size: 17px;
+	cursor: pointer;
+	text-align: center;
 }
 
 #wrapper.makeup .actions ul li p.layout {
@@ -988,9 +1115,36 @@ input, textarea {
 	font-family:NeutraDemi;
 }
 
+#wrapper.makeup .actions ul li p.null {
+	color:red;
+}
+
 #wrapper.makeup .actions ul li .status .switch {
 	margin-left:0;
 	float: left;
+}
+
+#wrapper.makeup .actions ul li div.add {
+	float:left;
+	width:100%;
+	height: 0;
+	overflow:hidden;
+}
+
+#wrapper.makeup .actions ul li div.add .button {
+	padding: 5px;
+	display: inline-block;
+	margin:0 5px;
+	width: 50px;
+	font-size: 11px;
+}
+
+#wrapper.makeup .actions ul li p.message {
+	color:#800000;
+	text-align: center;
+	width: 80%;
+	line-height: 16px;
+	padding: 0 10%;
 }
 
 @media (max-width: 800px) {

@@ -15,9 +15,12 @@
 	else if user.access == 2
 		a.button(href='/views/copy') c
 	else
-		a.button(href='/views/makeup') m
-		a.button(href='/views/copy') c
-		a.button(href='/views/art') a
+		- var s=""
+		if stack != undefined && stack != "undefined"
+			- s='?stack='+stack.stack
+		a.button(href='/views/makeup'+s) m
+		a.button(href='/views/copy'+s) c
+		a.button(href='/views/art'+s) a
 	#user
 		h2.userName #{name}
 		h3.userDept #{dept}
@@ -30,15 +33,34 @@
 					option(value=i) #{date}
 +alert
 
-mixin stacks(dept,active)
-	ul#stacks(class=dept)
+mixin stacks(dept,active,assignments,page)
+	if assignments && (dept=="copy" || dept=="art")
+		- var readers={}
+		each a in assignments
+			- readers[a.stack]=[]
+			for r in a.copy.readers
+				- readers[a.stack].push(r.username)
+	ul#stacks(class=page)
 		if dewm.weeks[user.current].stacks != undefined
+			- var toRead=[];
 			each stack, i in dewm.weeks[user.current].stacks
-				a(href="?stack="+stack.stack)
-					if (stack.stack==active)
-						+stack(dept,stack,"stack active")
-					else
-						+stack(dept,stack,"stack")
+				if assignments && (dept=="copy" || dept=="art")
+					if readers[stack.stack].indexOf(user.username)>-1
+						a(href="?stack="+stack.stack)
+							if (stack.stack==active)
+								+stack(page,stack,"stack active")
+							else
+								+stack(page,stack,"stack")
+						- toRead.push(stack.stack)
+				else
+					a(href="?stack="+stack.stack)
+						if (stack.stack==active)
+							+stack(page,stack,"stack active")
+						else
+							+stack(page,stack,"stack")
+			if toRead.length==0 && (dept=="copy" || dept=="art")
+				li(class="stack")
+					div.number No stacks to read for this week.
 
 mixin stack(dept,content,status)
 	if dept=="makeup"
@@ -68,27 +90,18 @@ mixin viewer(url,dept)
 	div.viewer
 		if (dept=="copy")
 			div#sidebar
-				h4 There are currently 4 people reading this piece: 
-					span.bold Alex, Amy, and Ryan.
-				h4 You are assigned 
-					span.bold part 2 of 5 
-					| for this piece. 
-					span.bold
-						a Go &raquo;
+				div#approve
+				div#reading
+				div#assigned
 				h2 Pick a size to read on
 				img.ipad(src="/images/ipad.png" width="60%")
 				img.iphone(src="/images/iphone5.png" width="30%")
 		else
 			div#sidebar
+				div#statuses
 				img.ipad(src="/images/ipad.png" width="34%")
 				img.ipadLandscape(src="/images/ipad-landscape.png" width="44%")
 				img.iphone(src="/images/iphone5.png" width="16%")
-		div#iframe
-			iframe(src=url scroll="yes")
-	script(src='/javascripts/viewer.js')
-
-mixin makeupViewer(url)
-	div.viewer
 		div#iframe
 			iframe(src=url scroll="yes")
 	script(src='/javascripts/viewer.js')

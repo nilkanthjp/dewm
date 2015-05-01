@@ -3,9 +3,9 @@ extends layout
 block content
 	include working
 	if(home)
-		+stacks("makeup")
+		+stacks(dept,"",assignments,"makeup")
 	else
-		+stacks("",stack.stack)
+		+stacks(dept,stack.stack,assignments,"")
 
 block wrapper
 	unless home
@@ -20,8 +20,6 @@ block wrapper
 					span.info=stack.stack
 				p XML Filename 
 					span.info=stack.xmlfilename
-				p Assigned to 
-					span.info Alex, Amy, and Ryan
 			div.buttons
 				p.button
 					a(target="_blank" href=dewm.weeks[user.current].orange.split("/Tablet")[1]+"/Digital Danville/"+stack.stack+"/"+stack.stack+".html") Open Digital Danville
@@ -36,54 +34,86 @@ block wrapper
 				ul.depth
 					li.copy
 						div.chart
-						p 0 comments have been added. 2 of 3 copy readers have signed off on the Digital Danville.
+						p
 					li.art
 						div.chart
-						p 0 of 6 tasks have been completed.
+						p
 					li.makeup
 						div.chart
-						p App layout is not yet ready to be built.
-
+						p
 			div.actions
 				ul
 					li.copy
 						div.button Build Digital Danville
+						div.status.first#total
+							p.wide
+						div.status#unresolved
+							p.wide
+						span.copy#readers
+						div.status.addCopy
+							div.change(onclick="makeup.openCopy()") +
+							p.add.wide Add Another Reader
+							div.add
+								select
+								div.button(onclick="makeup.closeCopy()") Close
+								div.button(onclick="makeup.addCopy()") Add
 					li.art
 						h3 Art Point Person
-						h2 Nilkanth Patel
-							div.edit Edit
-						div.status.true
+						h2
+							span
+							div.edit(onclick="makeup.openArt()") Edit
+						div.add
+							select
+							div.button(onclick="makeup.closeArt()") Close
+							div.button(onclick="makeup.changeArt()") Change
+						div.status#art0
 							p Dropped into new scans
 							div.switch
-								div.switchButton
-						div.status.true
+								div.switchButton#0
+						div.status#art1
 							p Crop Made by Art
 							div.switch
-								div.switchButton
-						div.status.false 
+								div.switchButton#1
+						div.status#art2
 							p Resized by Makeup
 							div.switch
-								div.switchButton
-						div.status.false
+								div.switchButton#2
+						div.status#art3
 							p Wordpress Uploaded
 							div.switch
-								div.switchButton
-						div.status.false
+								div.switchButton#3
+						div.status#art4
 							p Wordpress Cropped
 							div.switch
-								div.switchButton
-						div.status.false
+								div.switchButton#4
+						div.status#art5
 							p Wordpress Crops Resized
 							div.switch
-								div.switchButton
-						div.status.false
+								div.switchButton#5
+						div.status#app
+							p App layout approved
+							div.switch
+								div.switchButton#app
+						div.status#layout
 							p.narrow Layout
-							p.layout None
+							p.layout
 					li.makeup
 						div.button Build App Article
-
-			+viewer(dewm.weeks[user.current].green.split("/EDIT")[1]+"/"+stack.stack+"/"+stack.stack+".html")
-
+						div.status.first#built
+							p App Article Built 
+								span
+							div.switch
+								div.switchButton#built
+						div.status#copy
+							p Copy Approved
+							div.switch
+								div.switchButton#copy
+						div.status#makeup
+							p Makeup Approved 
+								span
+							div.switch
+								div.switchButton#makeup
+						p.message
 		script(src='/javascripts/d3.min.js')
 		script(src='/javascripts/radial.js')
 		script(src='/javascripts/makeup.js')

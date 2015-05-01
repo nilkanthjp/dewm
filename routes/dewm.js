@@ -5,6 +5,7 @@ var utils = require('dewm-utils');
 /* GET DEWM object. */
 router.get('/', function(req, res) {
 	var userDewm = dewm;
+	delete userDewm["socket"];
 	userDewm.user = req.session;
 	res.json(userDewm);
 });

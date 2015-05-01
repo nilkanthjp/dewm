@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var utils = require('dewm-utils');
 
 /* POST to login user. */
 router.post('/login', function(req, res) {
@@ -26,7 +27,7 @@ router.post('/add', function(req, res) {
 	var db = req.db;
 	db.collection('users').insert( req.body, function(err, result) {
 		if (err) { res.send(err) };
-		if (result) { console.log('Added.'); res.send(true); };
+		if (result) { console.log('Added.'); res.send(true); utils.generateUserDict(); };
 	});
 });
 
@@ -35,7 +36,7 @@ router.post('/delete/:username*', function(req, res) {
 		username = req.param('username');
 	db.collection('users').remove( {username:username}, function(err, result) {
 		if (err) { res.send(err) };
-		if (result) { console.log('Deleted.'); res.send(true); };
+		if (result) { console.log('Deleted.'); res.send(true); utils.generateUserDict(); };
 	});
 });
 
@@ -46,7 +47,7 @@ router.put('/edit', function(req, res) {
 	delete update.key;
 	db.collection('users').update( { username:key }, { $set:update }, function(err, result) {
 		if (err) { res.send(err) };
-		if (result) { console.log('Updated '+key); res.send(true); };
+		if (result) { console.log('Updated '+key); res.send(true); utils.generateUserDict(); };
 	});
 });
 

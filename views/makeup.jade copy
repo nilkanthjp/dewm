@@ -1,0 +1,183 @@
+extends layout
+
+block content
+	include working
+	if(home)
+		+stacks(dept,"",assignments,"makeup")
+	else
+		+stacks(dept,stack.stack,assignments,"")
+
+block wrapper
+	unless home
+		div#wrapper.makeup
+			h2=stack.kicker
+			h1=stack.title
+			if stack.author
+				h4 by 
+					span.author=stack.author
+			div.meta
+				p Stack Number 
+					span.info=stack.stack
+				p XML Filename 
+					span.info=stack.xmlfilename
+			div.buttons
+				p.button
+					a(target="_blank" href=dewm.weeks[user.current].orange.split("/Tablet")[1]+"/Digital Danville/"+stack.stack+"/"+stack.stack+".html") Open Digital Danville
+				p.button
+					a(target="_blank" href=dewm.weeks[user.current].green.split("/EDIT")[1]+"/"+stack.stack+"/"+stack.stack+".html") Open App Article
+
+			- var approved=0
+			for reader in assignment.copy.readers
+				if reader.status
+					- approved++
+			- var artTasks=0
+			for task in assignment.art.status
+				if task!==false && task!=="false"
+					- artTasks++
+			if assignment.art.app == true
+				- artTasks++
+			if assignment.art.layout != null
+				- artTasks++
+			- var makeupTasks=0
+			for task in assignment.makeup
+				if task!==false && task!=="false"
+					- makeupTasks++
+
+			div.status
+				ul.overview
+					li.copy Danville
+					li.art Art
+					li.makeup App
+				ul.depth
+					li.copy
+						div.chart
+							span.val='{"num":'+approved+', "den":'+assignment.copy.readers.length+'}'
+						p=approved
+							|  of 
+							=assignment.copy.readers.length
+							|  copy readers have approved the Danville.
+					li.art
+						div.chart
+							span.val='{"num":'+artTasks+', "den":8}'
+						p=artTasks
+							|  of 8 art tasks have been completed.
+					li.makeup
+						div.chart
+							span.val='{"num":'+makeupTasks+', "den":3}'
+						p=makeupTasks
+							|  of 3 makeup tasks have been completed.
+			div.actions
+				ul
+					li.copy
+						div.button Build Digital Danville
+						div.status.first
+							p.wide=comments.total
+								|  total comments
+						div.status
+							p.wide=comments.unresolved
+								|  unresolved comments
+						- var readers=[]
+						each reader, i in assignment.copy.readers
+							- readers.push(reader.username)
+							if reader.active
+								- var active="active"
+							else
+								- var active=""
+							div.status(class=reader.status+" "+active)
+								div.change(id=reader.username,onclick="makeup.removeCopy('"+reader.username+"')") -
+								p.narrow=dewm.users[reader.username].name
+								div.switch
+									div.switchButton(id=i)
+						div.status.addCopy
+							div.change(onclick="makeup.openCopy()") +
+							p.add.wide Add Another Reader
+							div.add
+								select
+									for user in dewm.users
+										if user.dept=="copy" && readers.indexOf(user.username)==-1
+											option(value=user.username)=user.name
+								div.button(onclick="makeup.closeCopy()") Close
+								div.button(onclick="makeup.addCopy()") Add
+					li.art
+						if assignment.art.username
+							- var art=dewm.users[assignment.art.username].name
+						else
+							- var art="None"
+						h3 Art Point Person
+						h2=art
+							div.edit(onclick="makeup.openArt()") Edit
+						div.add
+							select
+								option(value="null")="None"
+								for user in dewm.users
+									if user.dept=="art"
+										option(value=user.username)=user.name
+							div.button(onclick="makeup.closeArt()") Close
+							div.button(onclick="makeup.changeArt()") Change
+						div.status(class=assignment.art.status[0])
+							p Dropped into new scans
+							div.switch
+								div.switchButton#0
+						div.status(class=assignment.art.status[1])
+							p Crop Made by Art
+							div.switch
+								div.switchButton#1
+						div.status(class=assignment.art.status[2]) 
+							p Resized by Makeup
+							div.switch
+								div.switchButton#2
+						div.status(class=assignment.art.status[3])
+							p Wordpress Uploaded
+							div.switch
+								div.switchButton#3
+						div.status(class=assignment.art.status[4])
+							p Wordpress Cropped
+							div.switch
+								div.switchButton#4
+						div.status(class=assignment.art.status[5])
+							p Wordpress Crops Resized
+							div.switch
+								div.switchButton#5
+						div.status(class=assignment.art.app)
+							p App layout approved
+							div.switch
+								div.switchButton#app
+						div.status
+							p.narrow Layout
+							if assignment.art.layout
+								p.layout=assignment.art.layout
+							else
+								p.layout None
+					li.makeup
+						div.button Build App Article
+						if assignment.makeup.built!=false && assignment.makeup.built!="false"
+							- var built=true
+						else
+							- var built=false
+						if assignment.makeup.makeup!=false && assignment.makeup.makeup!="false"
+							- var makeup=true
+						else
+							- var makeup=false
+						div.status(class=built).first
+							p App Article Built
+								if built && assignment.makeup.built in dewm.users
+									span  by 
+									span=dewm.users[assignment.makeup.built].name
+							div.switch
+								div.switchButton#built
+						div.status(class=assignment.makeup.copy)
+							p Copy Approved
+							div.switch
+								div.switchButton#copy
+						div.status(class=makeup)
+							p Makeup Approved
+								if makeup && assignment.makeup.makeup in dewm.users
+									span  by 
+									span=dewm.users[assignment.makeup.makeup].name
+							div.switch
+								div.switchButton#makeup
+						p.message
+		script(src='/javascripts/d3.min.js')
+		script(src='/javascripts/radial.js')
+		script(src='/javascripts/makeup.js')
+

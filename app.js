@@ -22,6 +22,7 @@ var dewmroute = require('./routes/dewm');
 var admin = require('./routes/admin');
 var views = require('./routes/views');
 var comments = require('./routes/comments');
+var assignments = require('./routes/assignments');
 
 var app = express();
 var router = express.Router();
@@ -29,7 +30,8 @@ var router = express.Router();
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.set('trust proxy', 1)
+app.set('trust proxy', 1);
+app.set('env','development');
 
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(bodyParser.json());
@@ -57,6 +59,7 @@ app.use('/dewm', dewmroute);
 app.use('/admin', admin);
 app.use('/views', views);
 app.use('/comments', comments);
+app.use('/assignments', assignments);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
