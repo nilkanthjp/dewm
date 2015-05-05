@@ -2,11 +2,13 @@
 
 var viewer = new function() {
 	var self = this;
-	this.iphone = {width:330,height:480,wrapper:"",iframe:""};
+	this.device = "iphone";
+	this.iphone = {width:330,height:568,wrapper:"",iframe:""};
 	this.ipad = {width:778,height:1024,wrapper:"",frame:""};
 	this.ipadLandscape = {width:1034,height:768,wrapper:1024+$("#wrapper .viewer #sidebar").width()+100,iframe:1024};
 
-	this.resize = function(device) {
+	this.resize = function() {
+		var device = self.device;
 		if (self[device].width>800) {
 			$("#iframe").css("min-width",self[device].width);
 		} else {
@@ -22,10 +24,10 @@ var viewer = new function() {
 		});
 	};
 
-	this.init = function() {
-		self.resize("iphone");
+	this.init = function() { 
+		self.resize(self.device);
 	};
 
-	$("#wrapper .viewer #sidebar img").click(function() { self.resize($(this).attr("class")); })
-	this.init()
+	$("#wrapper .viewer #sidebar img").click(function() { self.device=$(this).attr("class"); self.resize(); })
+	this.init();
 }

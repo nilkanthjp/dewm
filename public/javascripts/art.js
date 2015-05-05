@@ -33,6 +33,10 @@ var art = new function() {
 		self.activateSwitches();
 	};
 
+	this.initLayout = function() {
+		
+	};
+
 	this.activateSwitches = function() {
 		$("#wrapper .viewer #sidebar .switchButton").click(function() {
 			var statusDiv = $(this).parent().parent(),

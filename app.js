@@ -92,16 +92,15 @@ app.use(function(err, req, res, next) {
     });
 });
 
-// start the server for push notifications
-// var options = {
-//     key: fs.readFileSync(__dirname + '/public/cert/key.pem'),
-//     cert: fs.readFileSync(__dirname + '/public/cert/cert.pem'),
-//     requestCert: false,
-//     rejectUnauthorized: false
-// };
-// var server = https.createServer(options, app).listen(3000, function(){
-//     dewm.initSocket(this,session);
-// });
-var server = app.listen(3000,function() { dewm.initSocket(this,session) });
+var options = {
+    key: fs.readFileSync(__dirname + '/public/cert/server.key'),
+    cert: fs.readFileSync(__dirname + '/public/cert/server.crt'),
+    requestCert: false,
+    rejectUnauthorized: false
+};
+var server = https.createServer(options, app).listen(3000, function(){
+    dewm.initSocket(this,session);
+});
+// var server = app.listen(3000,function() { dewm.initSocket(this,session) });
 
 module.exports = app;

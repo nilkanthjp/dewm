@@ -261,12 +261,16 @@ input, textarea {
 #header .button#manage, #header .button#logout {
 	width: 10px;
 	height: 14px;
-	background:url('https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/512/hand_poking_tool-.png') no-repeat white center center;
-	background-size: 50%;
+	background-image:url('../images/wrench.png');
+	background-repeat: no-repeat;
+	background-size: 70%;
+	background-position: center center;
 }
 
 #header .button#logout {
-	background-image:url('http://cdn.flaticon.com/png/256/32567.png');
+	background-image:url('../images/door.png');
+	background-repeat: no-repeat;
+	background-position: center center;
 }
 
 #header #issues {
@@ -655,10 +659,6 @@ select {
 	width: 100%;
 }
 
-#wrapper .viewer #sidebar .art_status:last-child {
-	border-bottom: 0;
-}
-
 #wrapper .viewer #sidebar .art_status h4 {
 	margin:0;
 	font-size:14px;
@@ -685,6 +685,19 @@ select {
 	margin-left:15px;
 }
 
+#wrapper .viewer #sidebar #layout {
+	margin: 10px 0;
+	margin-bottom: 20px;
+}
+
+#wrapper .viewer #sidebar #layout select {
+	margin:2px 0;
+}
+
+#wrapper .viewer #sidebar #layout h4 {
+	margin:0;
+}
+
 #wrapper #readers {
 	width:100%;
 	margin: 20px 0;
@@ -700,10 +713,15 @@ select {
 
 #wrapper .viewer iframe {
 	width:320px;
-	height:480px;
+	height:568px;
 	background: white;
 	border:1px solid gray;
 	margin:auto;
+}
+
+#wrapper .viewer #exit {
+	color:white;
+	width:90%;
 }
 
 /* special makeup viewer */
@@ -919,6 +937,14 @@ select {
 #wrapper.makeup .status ul.overview {
 	text-align: left;
 	margin-top:5px;
+}
+
+#wrapper.makeup div.status.false .switch {
+	background:#d3d3d3;
+}
+
+#wrapper.makeup div.status.false .switchButton {
+	border:1px solid #d3d3d3;
 }
 
 #wrapper.makeup .status ul.overview li, #wrapper.makeup .status ul.depth li, #wrapper.makeup .actions ul li {

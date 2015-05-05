@@ -18,6 +18,7 @@ var copy = new function() {
 				};
 			};
 			if (reader!==null) {
+				self.markers(self.assignments.copy.readers.length);
 				self.initApprove(reader);
 				self.initReading(reader);
 				self.initAssigned(reader);
@@ -58,7 +59,7 @@ var copy = new function() {
 	this.initAssigned = function(reader) {
 		var self=this,
 			total=self.assignments.copy.readers.length,
-			position=$(".viewer iframe").contents().height()*((reader+1)/total);
+			position=0;	
 		$("#wrapper .viewer #sidebar #assigned").html(
 			utils.templates.header
 				.replace(/<!--status-->/g,self.assignments.copy.readers[reader].status)
@@ -68,8 +69,23 @@ var copy = new function() {
 		);
 	};
 
-	this.scroll = function(position) {
-		$(".viewer iframe").contents().scrollTop(position);
+	this.markers = function(total) {
+		var paragraphs = $(".viewer iframe").contents().find(".content p"),
+			dividers=Math.round(paragraphs.length/total),
+			position=0,
+			count=0;
+		while (position<paragraphs.length) {
+			var start=dewm.users[self.assignments.copy.readers[count].username].name.split(" ")[0],
+				username=self.assignments.copy.readers[count].username;
+			if (count>0) { var end=dewm.users[self.assignments.copy.readers[count-1].username].name.split(" ")[0]; }
+			$(".viewer iframe").contents().find(".content p:nth-child("+position+")").after("<div id='"+username+"' style='text-align: center;text-transform: uppercase;color: gray;margin: 20px 0;line-height: 24px;'>End of "+end+"'s section, beginning of "+start+"'s section.</div>");
+			position=position+dividers;
+			count++;
+		};
+	};
+
+	this.scroll = function() {
+		$(".viewer iframe").contents().scrollTop($(".viewer iframe").contents().find(".content #"+dewm.user.username).position().top);
 	};
 
 	this.activateSwitches = function() {

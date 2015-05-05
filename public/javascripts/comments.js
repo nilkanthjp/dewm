@@ -45,6 +45,7 @@ var comments = new function() {
 			type:window.location.pathname.split("/")[2],
 			status:false,
 			time:new Date(),
+			approved:null,
 			text: $("#wrapper .comments .newComment .newCommentText").val()
 		};
 		$.ajax({
@@ -61,10 +62,12 @@ var comments = new function() {
 		$("#wrapper .comments ul li div.status .switch .switchButton").click(function() {
 			var id = $(this).parent().parent().parent().attr("id"),
 				opt = ["true","false"],
+				approved = false,
 				status = $("#wrapper .comments ul li#"+id+" div.status");
 			utils.toggle($(this),status);
 			status = utils.opposite(status.attr("class").split(" ")[1]);
-			updatedComment = { _id:id, status:status };
+			if (status) { var approved = JSON.stringify({by:dewm.user.username, at:new Date()}); };
+			updatedComment = { _id:id, status:status, approved:approved};
 			$.ajax({
 				type: 'PUT',
 				data: updatedComment,

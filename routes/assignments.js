@@ -18,7 +18,7 @@ router.get('/:stack*', function(req, res) {
 		});		
 	} else {
 		var db = req.db;
-		db.collection('assignments').find({stack:stack},{copy:1}).toArray(function (err, items) {
+		db.collection('assignments').find({stack:stack},{copy:1,art:1}).toArray(function (err, items) {
 			res.json(items[0]);
 		});		
 	}

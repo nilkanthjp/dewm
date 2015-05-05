@@ -36,8 +36,10 @@
 mixin stacks(dept,active,assignments,page)
 	if assignments && (dept=="copy" || dept=="art")
 		- var readers={}
+		- var arters={}
 		each a in assignments
 			- readers[a.stack]=[]
+			- arters[a.stack]=a.art.username
 			for r in a.copy.readers
 				- readers[a.stack].push(r.username)
 	ul#stacks(class=page)
@@ -45,7 +47,7 @@ mixin stacks(dept,active,assignments,page)
 			- var toRead=[];
 			each stack, i in dewm.weeks[user.current].stacks
 				if assignments && (dept=="copy" || dept=="art")
-					if readers[stack.stack].indexOf(user.username)>-1
+					if readers[stack.stack].indexOf(user.username)>-1 || (arters[stack.stack] == user.username)
 						a(href="?stack="+stack.stack)
 							if (stack.stack==active)
 								+stack(page,stack,"stack active")
@@ -90,6 +92,7 @@ mixin viewer(url,dept)
 	div.viewer
 		if (dept=="copy")
 			div#sidebar
+				a#exit.button(href="/") exit
 				div#approve
 				div#reading
 				div#assigned
@@ -99,6 +102,12 @@ mixin viewer(url,dept)
 		else
 			div#sidebar
 				div#statuses
+				div#layout
+					h4 Please select the layout for this piece
+					select
+						option None
+						option .square
+						option .box
 				img.ipad(src="/images/ipad.png" width="34%")
 				img.ipadLandscape(src="/images/ipad-landscape.png" width="44%")
 				img.iphone(src="/images/iphone5.png" width="16%")

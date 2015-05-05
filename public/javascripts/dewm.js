@@ -6,6 +6,7 @@ $.ajax({
 	dewm = data;
 	dewm.socket = io.connect(window.location.host);
 	stacks.sockets();
+	notifications.check();
 	if ($("#wrapper .comments").length>0) { comments.commentsSocket(); };
 });
 

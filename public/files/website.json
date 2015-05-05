@@ -1,0 +1,7 @@
+{
+	"websiteName": "TNY DEWM 2.0",
+	"websitePushID": "dewm.local",
+	"allowedDomains": ["10.98.82.199:3000","dewm:3000"],
+	"urlFormatString": "https://dewm:3000/%@/%@",
+	"webServiceURL": "https://10.98.82.199:3000"
+}

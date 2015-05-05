@@ -26,11 +26,12 @@ router.post('/add', function(req, res) {
 
 router.put('/edit', function(req, res) {
 	var db = req.db,
-		update = {status:req.body.status},
+		update = {status:req.body.status, approved:req.body.approved},
 		key = new mongo.BSONPure.ObjectID(req.body._id);
 	if (update.status == "true" || update.status == "false") {
 		update.status = JSON.parse(update.status);
 	};
+	update.approved=JSON.parse(update.approved);
 	db.collection('comments').update( { _id:key }, { $set:update }, function(err, result) {
 		if (err) { res.send(err); };
 		if (result) { console.log('Updated comment with id: '+key); res.send(true); };
