@@ -7,7 +7,7 @@ router.get('/', function(req, res) {
 
 router.get('/stack/:stack*', function(req, res) {
 	var stack=req.param('stack');
-	if (req.session.access === 0) {
+	if (req.session.access <= 1) {
 		var db = req.db;
 		db.collection('assignments').find({stack:stack}).toArray(function (err, items) {
 			var data = items[0];
@@ -26,7 +26,7 @@ router.get('/stack/:stack*', function(req, res) {
 
 router.get('/issue/:issue*', function(req, res) {
 	var issue=req.param('issue');
-	if (req.session.access === 0) {
+	if (req.session.access <= 1) {
 		var db = req.db;
 		db.collection('assignments').find({stack:{$regex : ".*"+issue}}).toArray(function (err, items) {
 			res.json(items);
@@ -36,7 +36,7 @@ router.get('/issue/:issue*', function(req, res) {
 		db.collection('assignments').find({stack:{$regex : ".*"+issue}},{copy:1,art:1,stack:1}).toArray(function (err, items) {
 			res.json(items);
 		});		
-	}
+	};
 });
 
 router.post('/update', function(req, res) {

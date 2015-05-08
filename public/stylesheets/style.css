@@ -568,6 +568,10 @@ select {
 	margin-top:5px;
 	font-family: Caslon;
 	font-style: italic;
+	background:#fffcca;
+	padding:4px;
+	border-radius: 5px;
+	margin-left:calc(20% + 5px);
 }
 
 #stacks .stack .meta .bold {

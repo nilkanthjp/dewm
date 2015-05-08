@@ -36,7 +36,7 @@ var stacks = new function() {
 		dewm.socket.on('assignments', function(s) {
 			if (dewm.user.access<=1 && stacks.dept=="makeup") { makeup.init(); }
 			if (stacks.currentStack && s==stacks.currentStack) { 
-				if (dewm.user.access<=1 && stacks.dept=="art") { art.init(); }
+				if ([0,1,3].indexOf(dewm.user.access)>-1 && stacks.dept=="art") { art.init(); }
 				else if (dewm.user.access==2) { copy.init(); }
 			};
 		});

@@ -8,7 +8,7 @@ var copy = new function() {
 			self=this;
 		$.ajax({
 			type: 'GET',
-			url: '/assignments/'+stacks.currentStack
+			url: '/assignments/stack/'+stacks.currentStack
 		}).done(function( data ) {
 			self.assignments=data;
 			var reader = null;

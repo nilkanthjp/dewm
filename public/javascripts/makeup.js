@@ -50,11 +50,8 @@ var makeup = new function() {
 					active.push(dewm.users[self.assignments[i].copy.readers[j].username].name); 
 				};
 			};
-			if (active.length>0) { 
-				$("#stacks li#"+self.assignments[i].stack+" .meta")
-					.html('Currently reading: <span class="bold">'+active.join(", ")+"</span>")
-					.css("margin-left","calc(20% + 5px)");
-			} else { $("#stacks li#"+self.assignments[i].stack+" .meta").html('').css("margin-left",0); };
+			if (active.length>0) { $("#stacks li#"+self.assignments[i].stack+" .meta").html('Currently reading: <span class="bold">'+active.join(", ")+"</span>").show(); }
+				else { $("#stacks li#"+self.assignments[i].stack+" .meta").html('').hide(); };
 		};
 	};
 

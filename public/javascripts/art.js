@@ -8,7 +8,7 @@ var art = new function() {
 			self=this;
 		$.ajax({
 			type: 'GET',
-			url: '/assignments/'+stacks.currentStack
+			url: '/assignments/stack/'+stacks.currentStack
 		}).done(function( data ) {
 			self.assignments=data;
 			self.initStatuses();
