@@ -5,7 +5,7 @@ router.get('/', function(req, res) {
 	res.redirect('/');
 });
 
-router.get('/:stack*', function(req, res) {
+router.get('/stack/:stack*', function(req, res) {
 	var stack=req.param('stack');
 	if (req.session.access === 0) {
 		var db = req.db;
@@ -18,8 +18,23 @@ router.get('/:stack*', function(req, res) {
 		});		
 	} else {
 		var db = req.db;
-		db.collection('assignments').find({stack:stack},{copy:1,art:1}).toArray(function (err, items) {
+		db.collection('assignments').find({stack:stack},{copy:1,art:1,stack:1}).toArray(function (err, items) {
 			res.json(items[0]);
+		});		
+	}
+});
+
+router.get('/issue/:issue*', function(req, res) {
+	var issue=req.param('issue');
+	if (req.session.access === 0) {
+		var db = req.db;
+		db.collection('assignments').find({stack:{$regex : ".*"+issue}}).toArray(function (err, items) {
+			res.json(items);
+		});		
+	} else {
+		var db = req.db;
+		db.collection('assignments').find({stack:{$regex : ".*"+issue}},{copy:1,art:1,stack:1}).toArray(function (err, items) {
+			res.json(items);
 		});		
 	}
 });

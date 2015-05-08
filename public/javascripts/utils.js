@@ -60,7 +60,8 @@ var utils = new function() {
         "reader":"<div class='status <!--class-->'><div class='change' id='<!--username-->' onclick='makeup.removeCopy(\"<!--username-->\")'>-</div><p class='narrow'><!--name--></p><div class='switch'><div class='switchButton' id='<!--index-->'></div></div></div>",
         "select":"<option value='<!--username-->'><!--name--></option>",
         "header":"<h4 class='<!--class-->'><!--text--></h4>",
-        "switch":"<div class='status <!--status-->'><div class='switch'><div class='switchButton' id='<!--index-->'></div></div></div>"
+        "switch":"<div class='status <!--status-->'><div class='switch'><div class='switchButton' id='<!--index-->'></div></div></div>",
+        "layouts":[".horizontal-header-first",".horizontal-header-last",".square-header-first",".square-header-last",".vertical-header-first",".vertical-header-last",".fiction"]
     };
 }
 

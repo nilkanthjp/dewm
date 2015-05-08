@@ -20,20 +20,42 @@ var makeup = new function() {
 			.value(percentage)
 			.c(c)
 			.render();
-	}
+	};
 
 	this.init = function() {
 		var self=this;
+		if (window.location.search.indexOf("?stack=")>-1) { var url="stack/"+stacks.currentStack; }
+		else { var url="issue/"+dewm.dates.strings[dewm.user.current]; }
 		$.ajax({
 			type: 'GET',
-			url: '/assignments/'+stacks.currentStack
+			url: '/assignments/'+url
 		}).done(function( data ) {
 			self.assignments=data;
-			self.initCopy();
-			self.initArt();
-			self.initMakeup();
-			self.initSwitches();
+			if (window.location.search.indexOf("?stack=")>-1) {
+				self.initCopy();
+				self.initArt();
+				self.initMakeup();
+				self.initSwitches();
+			} else {
+				self.activeReaders();
+			};
 		});
+	};
+
+	this.activeReaders = function() {
+		for (var i=0; i<self.assignments.length; i++) {
+			var active=[];
+			for (var j=0; j<self.assignments[i].copy.readers.length; j++) {
+				if (self.assignments[i].copy.readers[j].active) { 
+					active.push(dewm.users[self.assignments[i].copy.readers[j].username].name); 
+				};
+			};
+			if (active.length>0) { 
+				$("#stacks li#"+self.assignments[i].stack+" .meta")
+					.html('Currently reading: <span class="bold">'+active.join(", ")+"</span>")
+					.css("margin-left","calc(20% + 5px)");
+			} else { $("#stacks li#"+self.assignments[i].stack+" .meta").html('').css("margin-left",0); };
+		};
 	};
 
 	this.initCopy = function() {
@@ -243,5 +265,4 @@ var makeup = new function() {
 		self.init();
 	});
 
-	this.init();
 };

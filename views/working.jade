@@ -76,6 +76,7 @@ mixin stack(dept,content,status)
 				div.web
 				div.copy
 				div.tablet
+			div.meta
 	else
 		li(id=content.stack,class=status)
 			div.number=content.stack
@@ -101,6 +102,7 @@ mixin viewer(url,dept)
 				img.iphone(src="/images/iphone5.png" width="30%")
 		else
 			div#sidebar
+				a.button(href=url target="_blank") Open App Layout
 				div#statuses
 				div#layout
 					h4 Please select the layout for this piece

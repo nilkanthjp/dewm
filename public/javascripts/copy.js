@@ -65,7 +65,7 @@ var copy = new function() {
 				.replace(/<!--status-->/g,self.assignments.copy.readers[reader].status)
 				.replace(/<!--index-->/g,reader)
 				.replace(/<!--class-->/g,"approve")
-				.replace(/<!--text-->/g,"You are assigned <span class='bold'>part "+(reader+1)+" of "+total+"</span> for this piece. <span class='bold'><a onclick='copy.scroll("+position+")'>Go &raquo;</a></span>")
+				.replace(/<!--text-->/g,"You are assigned <span class='bold'>part "+(reader+1)+" of "+total+"</span> for this piece. <span class='bold'><a onclick='copy.scroll()'>Go &raquo;</a></span>")
 		);
 	};
 

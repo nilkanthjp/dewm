@@ -558,9 +558,21 @@ select {
 	width:15%;
 	padding-bottom:15%;
 	margin:0 8%;
-	background:red;
+	background:gray;
 	border-radius: 100%;
 	cursor: pointer;
+}
+
+#stacks .stack .meta {
+	font-size:14px;
+	margin-top:5px;
+	font-family: Caslon;
+	font-style: italic;
+}
+
+#stacks .stack .meta .bold {
+	font-family:NeutraLight;
+	text-transform: uppercase;
 }
 
 /* customize style for stacks menu for makeup staffers */
@@ -719,9 +731,18 @@ select {
 	margin:auto;
 }
 
-#wrapper .viewer #exit {
+#wrapper .viewer .button {
 	color:white;
 	width:90%;
+}
+
+#wrapper .viewer h4 span.dept {
+	float: left;
+	margin-right: 6px;
+	padding: 4px;
+	background: #fffcca;
+	border-radius: 5px;
+	line-height: 17px;
 }
 
 /* special makeup viewer */
@@ -939,11 +960,11 @@ select {
 	margin-top:5px;
 }
 
-#wrapper.makeup div.status.false .switch {
+#wrapper.makeup div.status.false .switch, #wrapper .viewer div.status.false .switch {
 	background:#d3d3d3;
 }
 
-#wrapper.makeup div.status.false .switchButton {
+#wrapper.makeup div.status.false .switchButton, #wrapper .viewer div.status.false .switchButton {
 	border:1px solid #d3d3d3;
 }
 

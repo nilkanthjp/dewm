@@ -18,13 +18,13 @@ var art = new function() {
 	this.initStatuses = function() {
 		var html="",
 			text=[
-				"Has the art been dropped into New Scans?",
-				"Has someone made the crop?",
-				"Has someone resized the art?",
-				"Has someone uploaded art to Wordpress?",
-				"Has someone cropped art for Wordpress?",
-				"Has someone resized the Wordpress crops?",
-				"Has someone approved the app layout?"
+				"<span class='dept'>Makeup</span> Has the art been dropped into New Scans?",
+				"<span class='dept'>Art</span> Has someone made the crop?",
+				"<span class='dept'>Makeup</span> Has someone resized the art?",
+				"<span class='dept'>Makeup</span> Has someone uploaded art to Wordpress?",
+				"<span class='dept'>Art</span> Has someone cropped art for Wordpress?",
+				"<span class='dept'>Makeup</span> Has someone resized the Wordpress crops?",
+				"<span class='dept'>Art</span> Has someone approved the app layout?"
 			];
 		for (var i=0; i<self.assignments.art.status.length; i++) {
 			html=html+"<div class='art_status'>"+utils.makeStatus("",text[i],self.assignments.art.status[i],i)+"</div>";
@@ -34,7 +34,7 @@ var art = new function() {
 	};
 
 	this.initLayout = function() {
-		
+
 	};
 
 	this.activateSwitches = function() {

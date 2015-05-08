@@ -7,6 +7,7 @@ $.ajax({
 	dewm.socket = io.connect(window.location.host);
 	stacks.sockets();
 	notifications.check();
+	if ($("#stacks.makeup, #wrapper.makeup").length>0) { makeup.init(); };
 	if ($("#wrapper .comments").length>0) { comments.commentsSocket(); };
 });
 
@@ -24,7 +25,7 @@ var stacks = new function() {
 		}).done(function() {
 			location.reload();
 		});
-	}
+	};
 
 	this.sockets = function() {
 		var self=this;
@@ -33,9 +34,9 @@ var stacks = new function() {
 			dewm.socket.on('endStack', function() { $("#alert").hide(); });
 		};
 		dewm.socket.on('assignments', function(s) {
+			if (dewm.user.access<=1 && stacks.dept=="makeup") { makeup.init(); }
 			if (stacks.currentStack && s==stacks.currentStack) { 
-				if (dewm.user.access<=1 && stacks.dept=="makeup") { makeup.init(); }
-				else if (dewm.user.access<=1 && stacks.dept=="art") { art.init(); }
+				if (dewm.user.access<=1 && stacks.dept=="art") { art.init(); }
 				else if (dewm.user.access==2) { copy.init(); }
 			};
 		});
@@ -43,7 +44,7 @@ var stacks = new function() {
 			var newWeek = $(this).val();
 			self.changeWeek(newWeek);
 		});
-	}
+	};
 
 	this.newStack = function(changes) {
 		var added=changes[0],
@@ -64,7 +65,7 @@ var stacks = new function() {
 		$("#alert #submit").click(function(){self.submit()});
 		$("#alert #close").click(function(){$("#alert").hide();})
 		$("#alert").show()
-	}
+	};
 
 	this.submit = function() {
 		var deleted=$.makeArray($("#alert #old").find('li').map(function(){return $(this).text();})),
