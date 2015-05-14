@@ -173,6 +173,7 @@ var makeup = new function() {
 				utils.toggle($(buttonObject),$(buttonObject).parent().parent());
 			});
 		});
+		$("#wrapper.makeup .actions ul li #buildDanville").click(function(){ self.build("danville") })
 	};
 
 	this.switchToggle = function(dept,button,status,callback) {
@@ -256,6 +257,20 @@ var makeup = new function() {
 	this.closeArt = function() {
 		$("#wrapper.makeup .actions ul li.art div.add").animate({"height":0},200);
 		$("#wrapper.makeup .actions ul li.art h2 div.edit").attr("onclick","makeup.openArt()")
+	};
+
+	this.build = function(type) {
+		$("#buildDanville").html("<img width='12' src='/images/loader-large.gif' />")
+		var data = {stack:stacks.currentStack,type:type};
+		$.ajax({
+			type: 'POST',
+			data: data,
+			url: '/dewm/build'
+		}).done(function( response ) { 
+			if (!response.status) { stacks.buildError(response.text); }
+			else { $("#buildDanville").html("<span>Built!</span>") };
+			window.setTimeout(function(){ $("#buildDanville span").fadeOut(function(){ $("#buildDanville").html("Build Danville").css("opacity",1) }) },2000);
+		});
 	};
 
 	$(window).resize(function() {

@@ -324,11 +324,11 @@ input, textarea {
 	top:0;
 	left:0;
 	background: rgba(255,255,255,.85);
-	z-index: 1;
+	z-index: 2;
 	display: none;
 }
 
-#alert #alertContent {
+#alert .alertContent {
 	width:calc(50% - 40px);
 	position:fixed;
 	top:150px;
@@ -339,25 +339,25 @@ input, textarea {
 	border-radius:10px;
 }
 
-#alert #alertContent h3 {
+#alert .alertContent h3 {
 	font-size:17px;
 	margin:0;
 	padding:0;
 }
 
-#alert #alertContent .column {
+#alert .alertContent .column {
 	width:50%;
 	display: inline-block;
 	margin-top: 15px;
 	text-align: center;
 }
 
-#alert #alertContent .column ul li {
+#alert .alertContent .column ul li {
 	margin:5px 0;
 	text-align:center;
 }
 
-#alert #alertContent select {
+#alert .alertContent select {
 	margin:0;
 	padding:0;
 	padding-left:10px;

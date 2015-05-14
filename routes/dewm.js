@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var utils = require('dewm-utils');
+var build = require('dewm-build');
 
 /* GET DEWM object. */
 router.get('/', function(req, res) {
@@ -19,8 +20,15 @@ router.post('/week', function(req, res) {
 	});
 });
 
-router.post('/issues', function(req, res) {
-	
+router.post('/build', function(req, res) {
+	if (req.session.access <= 1) {
+		var date = utils.format.date.stack(req.body.stack),
+			week = dewm.dates.strings.indexOf(date),
+			stack = dewm.weeks[week].files.indexOf(req.body.stack);
+		build.init(week,stack,req.body.type,dewm,function(response) { res.send(response); });
+	} else {
+		res.redirect('/');
+	}
 });
 
 router.get('/stacks/:stack*', function(req, res) {

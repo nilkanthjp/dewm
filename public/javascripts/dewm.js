@@ -64,6 +64,8 @@ var stacks = new function() {
 		$("#alertContent #old ul").html(oHTML)
 		$("#alert #submit").click(function(){self.submit()});
 		$("#alert #close").click(function(){$("#alert").hide();})
+		$("#alert #other").hide()
+		$("#alert #stackMixup").show()
 		$("#alert").show()
 	};
 
@@ -84,9 +86,16 @@ var stacks = new function() {
 		});
 		for (var i=0; i<added.length; i++) {
 			actions[added[i]]=true;
-		}
+		};
 		dewm.socket.emit('reqStack', [actions,dewm.user.current]);
 		window.location=window.location.href
+	};
+
+	this.buildError = function(text) {
+		$("#alert #other").html("<h2>Build Error!</h2><h3 style='text-align:center;'>"+text+"</h3><div class='button' id='close'>Close</div>").show();
+		$("#alert div.button#close").click(function(){ $("#alert").hide(); });
+		$("#alert #stackMixup").hide();
+		$("#alert").show();
 	};
 
 }

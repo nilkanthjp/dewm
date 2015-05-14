@@ -130,7 +130,7 @@ mixin comments
 
 mixin alert
 	div#alert
-		div#alertContent
+		div.alertContent#stackMixup
 			h2 Oh man, a stack was just deleted from the sidecar.
 			h3 You're my only hope! Can you match up the old stack numbers (on the left) with the new ones (on the right)? If one of the old ones has been deleted from the issue, select 'Deleted.' If there's any new stack that's left unmatched, it will be treated like a completely new stack.
 			div.column#old
@@ -143,4 +143,5 @@ mixin alert
 				div.button#close Someone else is doing it
 			div.column
 				div.button#submit Submit 
+		div.alertContent#other
 
