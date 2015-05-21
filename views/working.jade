@@ -107,9 +107,13 @@ mixin viewer(url,dept)
 				div#layout
 					h4 Please select the layout for this piece
 					select
-						option None
-						option .square
-						option .box
+						option(value=null) None
+						option(value=".horizontal-header-first") .horizontal-header-first
+						option(value=".horizontal-header-last") .horizontal-header-last
+						option(value=".square-header-first") .square-header-first
+						option(value=".square-header-last") .square-header-last
+						option(value=".vertical-header-first") .vertical-header-first
+						option(value=".vertical-header-last") .vertical-header-last
 				img.ipad(src="/images/ipad.png" width="34%")
 				img.ipadLandscape(src="/images/ipad-landscape.png" width="44%")
 				img.iphone(src="/images/iphone5.png" width="16%")

@@ -29,6 +29,7 @@ var art = new function() {
 		for (var i=0; i<self.assignments.art.status.length; i++) {
 			html=html+"<div class='art_status'>"+utils.makeStatus("",text[i],self.assignments.art.status[i],i)+"</div>";
 		};
+		$("#wrapper .viewer #sidebar #layout select").val(self.assignments.art.layout);
 		$("#wrapper .viewer #sidebar #statuses").html(html);
 		self.activateSwitches();
 	};
@@ -50,7 +51,17 @@ var art = new function() {
 				url: '/assignments/update',
 				dataType: 'json'
 			});
-		})
+		});
+		$("#wrapper .viewer #sidebar #layout select").change(function() {
+			var layout = $(this).val(),
+				data={stack:stacks.currentStack,field:"art.layout",status:layout};
+			$.ajax({
+				type: 'POST',
+				data: data,
+				url: '/assignments/update',
+				dataType: 'json'
+			});
+		});
 	};
 
 	this.init();

@@ -572,6 +572,7 @@ select {
 	padding:4px;
 	border-radius: 5px;
 	margin-left:calc(20% + 5px);
+	display: none;
 }
 
 #stacks .stack .meta .bold {
