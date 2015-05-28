@@ -54,19 +54,21 @@ var stacks = new function() {
 			oHTML="";
 		for (var i=0; i<added.length; i++) {
 			nHTML=nHTML+"<option id='"+added[i]+"'>"+added[i]+"</option>"
-		}
+		};
 		nHTML=nHTML+"</select></li>"
 		for (var i=0; i<deleted.length; i++) {
 			nFullHTML=nFullHTML+nHTML;
 			oHTML=oHTML+"<li id='"+deleted[i]+"'>"+deleted[i]+"</li>";
-		}
-		$("#alertContent #new ul").html(nFullHTML)
-		$("#alertContent #old ul").html(oHTML)
-		$("#alert #submit").click(function(){self.submit()});
-		$("#alert #close").click(function(){$("#alert").hide();})
-		$("#alert #other").hide()
-		$("#alert #stackMixup").show()
-		$("#alert").show()
+		};
+		if ($(".alertContent #new ul").html().length==0) {
+			$(".alertContent #new ul").html(nFullHTML);
+			$(".alertContent #old ul").html(oHTML);
+			$("#alert #submit").click(function(){self.submit()});
+			$("#alert #close").click(function(){$("#alert").hide();});
+			$("#alert #other").hide();
+			$("#alert #stackMixup").show();
+			$("#alert").show();
+		};
 	};
 
 	this.submit = function() {
