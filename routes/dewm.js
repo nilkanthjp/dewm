@@ -15,20 +15,14 @@ router.post('/week', function(req, res) {
 	var week = parseInt(req.body.week);
 	req.session.current = week;
 	req.session.save();
-	response = dewm.setWeek(week,function(response) {
-		res.send(response);
-	});
+	response = dewm.setWeek(week,function(response) { res.send(response); });
 });
 
 router.post('/build', function(req, res) {
 	if (req.session.access <= 1) {
-		var date = utils.format.date.stack(req.body.stack),
-			week = dewm.dates.strings.indexOf(date),
-			stack = dewm.weeks[week].files.indexOf(req.body.stack);
+		var date = utils.format.date.stack(req.body.stack), week = dewm.dates.strings.indexOf(date), stack = dewm.weeks[week].files.indexOf(req.body.stack);
 		build.init(week,stack,req.body.type,dewm,function(response) { res.send(response); });
-	} else {
-		res.redirect('/');
-	}
+	} else { res.redirect('/'); }
 });
 
 router.get('/stacks/:stack*', function(req, res) {
